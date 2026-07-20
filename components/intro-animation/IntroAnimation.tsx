@@ -81,18 +81,16 @@ export default function IntroAnimation({ persist = true, onExit }: IntroAnimatio
       <div className={styles.stack}>
         <div className={styles.markContainer} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/JONES%20%2B%20POET%20FOR%20SITE.svg"
-            alt=""
-            className={styles.monogram}
-          />
+          <img src="/assets/J%20Jones.svg" alt="" className={styles.markJ} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/Poet%20P.svg" alt="" className={styles.markP} />
         </div>
 
         <div className={styles.wordmarkWrap}>
           <span className={styles.srOnly}>Jones + Poet</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/Jones%20+%20Poet%20Name.svg"
+            src="/JONES%20%2B%20POET%20FOR%20SITE.svg"
             alt=""
             aria-hidden="true"
             className={styles.wordmarkImg}
