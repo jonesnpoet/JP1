@@ -107,7 +107,9 @@ export default function IntroAnimation({ persist = true, onExit }: IntroAnimatio
             className={styles.subtextImg}
           />
         </div>
+      </div>
 
+      <div className={styles.hintWrap}>
         <p className={styles.hint}>Click to enter</p>
       </div>
     </div>

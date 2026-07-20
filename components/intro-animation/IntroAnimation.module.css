@@ -80,7 +80,7 @@
 .wordmarkWrap {
   opacity: 0;
   transform: translateY(8px);
-  margin-bottom: 14px;
+  margin-bottom: 28px;
   animation: fadeUp 0.6s ease 1.05s forwards;
 }
 
@@ -113,8 +113,14 @@
   }
 }
 
+.hintWrap {
+  position: absolute;
+  left: 50%;
+  bottom: 48px;
+  transform: translateX(-50%);
+}
+
 .hint {
-  margin-top: 28px;
   opacity: 0;
   transform: translateY(8px);
   animation: fadeUp 0.6s ease 2.1s forwards;
