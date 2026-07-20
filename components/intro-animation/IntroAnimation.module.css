@@ -28,8 +28,8 @@
 
 .markContainer {
   position: relative;
-  width: 111px;
-  height: 132px;
+  width: 149.85px;
+  height: 178.2px;
   margin-bottom: 28px;
 }
 
@@ -37,8 +37,8 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 55px;
-  height: 99px;
+  width: 74.25px;
+  height: 133.65px;
   opacity: 0;
   transform: translateY(-80px);
   animation: dropIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
@@ -46,10 +46,10 @@
 
 .markP {
   position: absolute;
-  left: 39px;
-  top: 31px;
-  width: 72px;
-  height: 101px;
+  left: 52.65px;
+  top: 41.85px;
+  width: 97.2px;
+  height: 136.35px;
   opacity: 0;
   transform: translateY(80px);
   animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
