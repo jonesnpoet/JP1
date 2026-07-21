@@ -35,8 +35,9 @@
   transform: translate(24px, 16px) scale(0.2);
 }
 
-.wrapper.animateDock {
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+/* Stage 1 only: shrink + move, no color change yet. */
+.wrapper.animateTransform {
+  transition: transform 1.4s ease-in-out;
 }
 
 @media (max-width: 640px) {
@@ -67,13 +68,14 @@
   filter: brightness(1);
 }
 
-.wrapper.animateDock .markJ,
-.wrapper.animateDock .markP {
-  transition: filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+/* Stage 2 only: color inverts once the monogram has already settled into place. */
+.wrapper.animateColor .markJ,
+.wrapper.animateColor .markP {
+  transition: filter 1.4s ease-in-out;
 }
 
-.wrapper.docked .markJ,
-.wrapper.docked .markP {
+.wrapper.inverted .markJ,
+.wrapper.inverted .markP {
   filter: brightness(0);
 }
 

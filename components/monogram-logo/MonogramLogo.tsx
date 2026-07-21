@@ -3,19 +3,31 @@ import styles from "./MonogramLogo.module.css";
 export type MarkState = "entrance" | "reduced" | "reducedSettled" | "static";
 
 export interface MonogramLogoProps {
-  /** Centered/full-size (intro) vs docked into the nav (top-left, small). */
+  /** Centered/full-size (intro) vs docked into the nav (top-left, small). Stage 1 target. */
   docked: boolean;
-  /** Whether the dock transform/color change should transition or snap instantly. */
-  animateDock: boolean;
+  /** Stage 1 only: transitions the transform (shrink + move). */
+  animateTransform: boolean;
+  /** White (intro) vs forced black (post color-inversion). Stage 2 target. */
+  inverted: boolean;
+  /** Stage 2 only: transitions the color (filter) change. */
+  animateColor: boolean;
   /** Controls the J/P marks' own entrance animation, independent of docking. */
   markState: MarkState;
 }
 
-export default function MonogramLogo({ docked, animateDock, markState }: MonogramLogoProps) {
+export default function MonogramLogo({
+  docked,
+  animateTransform,
+  inverted,
+  animateColor,
+  markState,
+}: MonogramLogoProps) {
   const wrapperClassName = [
     styles.wrapper,
     docked ? styles.docked : styles.intro,
-    animateDock && styles.animateDock,
+    animateTransform && styles.animateTransform,
+    inverted && styles.inverted,
+    animateColor && styles.animateColor,
   ]
     .filter(Boolean)
     .join(" ");

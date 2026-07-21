@@ -3,8 +3,10 @@
 import styles from "./IntroAnimation.module.css";
 
 export interface IntroAnimationProps {
-  /** True while the dismiss transition is playing (fades backdrop + text out). */
-  exiting: boolean;
+  /** Stage 1: wordmark/subtext/hint fade out quickly, clicks stop registering. */
+  textExiting: boolean;
+  /** Stage 2 only: the black backdrop fades away, revealing the white site. */
+  backgroundInverting: boolean;
   reducedMotion: boolean;
   /** After the reduced-motion settle delay, fades content in without the keyframe motion. */
   reducedSettled: boolean;
@@ -12,7 +14,8 @@ export interface IntroAnimationProps {
 }
 
 export default function IntroAnimation({
-  exiting,
+  textExiting,
+  backgroundInverting,
   reducedMotion,
   reducedSettled,
   onDismiss,
@@ -26,7 +29,8 @@ export default function IntroAnimation({
 
   const overlayClassName = [
     styles.overlay,
-    exiting && styles.exiting,
+    textExiting && styles.textExiting,
+    backgroundInverting && styles.backgroundInverting,
     reducedMotion && styles.reduced,
     reducedSettled && styles.settled,
   ]

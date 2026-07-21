@@ -5,15 +5,22 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   background-color: #000;
-  transition: opacity 0.7s ease, visibility 0.7s ease;
   opacity: 1;
   visibility: visible;
 }
 
-.overlay.exiting {
+/* Stage 1: stop registering clicks once dismissal starts, but the backdrop
+   itself stays fully opaque/black until stage 2. */
+.overlay.textExiting {
+  pointer-events: none;
+}
+
+/* Stage 2 only: the black backdrop fades away after the monogram has
+   already settled into the nav. */
+.overlay.backgroundInverting {
+  transition: opacity 1.4s ease-in-out, visibility 1.4s ease-in-out;
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
 }
 
 /*
@@ -118,10 +125,10 @@
   opacity: 1;
 }
 
-/* Fade the text out quickly on dismiss, ahead of the slower overlay/monogram motion. */
-.exiting .wordmarkWrap,
-.exiting .subtextWrap,
-.exiting .hint {
+/* Stage 1: fade the text out quickly, ahead of the slower shrink/move + color stages. */
+.textExiting .wordmarkWrap,
+.textExiting .subtextWrap,
+.textExiting .hint {
   opacity: 0;
   transition: opacity 0.3s ease;
   animation: none;

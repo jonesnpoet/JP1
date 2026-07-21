@@ -7,10 +7,16 @@ import IntroAnimation from "@/components/intro-animation";
 import { IntroReadyProvider } from "./intro-ready-context";
 
 const SESSION_KEY = "jp-intro-seen";
-const DOCK_DURATION_MS = 700;
+// Stage 1: monogram shrinks + moves into the nav slot. No color change yet.
+const SHRINK_DURATION_MS = 1400;
+// Stage 2: once settled, backdrop + monogram invert color together.
+const INVERT_DURATION_MS = 1400;
 const REDUCED_MOTION_SETTLE_MS = 300;
 
-type Phase = "pending" | "intro" | "dismissing" | "done";
+// pending -> intro -> [dismiss] -> shrinking -> inverting -> done
+// Each stage runs to completion before the next starts. Reduced motion
+// skips straight from "intro" to "done" (snap, no animated stages).
+type Phase = "pending" | "intro" | "shrinking" | "inverting" | "done";
 
 export default function SiteIntroProvider({ children }: { children: React.ReactNode }) {
   const [phase, setPhase] = useState<Phase>("pending");
@@ -41,11 +47,17 @@ export default function SiteIntroProvider({ children }: { children: React.ReactN
   const handleDismiss = () => {
     if (phase !== "intro") return;
     sessionStorage.setItem(SESSION_KEY, "1");
-    setPhase("dismissing");
-    window.setTimeout(
-      () => setPhase("done"),
-      reducedMotion ? 0 : DOCK_DURATION_MS,
-    );
+
+    if (reducedMotion) {
+      setPhase("done");
+      return;
+    }
+
+    setPhase("shrinking");
+    window.setTimeout(() => {
+      setPhase("inverting");
+      window.setTimeout(() => setPhase("done"), INVERT_DURATION_MS);
+    }, SHRINK_DURATION_MS);
   };
 
   if (phase === "pending") {
@@ -57,9 +69,11 @@ export default function SiteIntroProvider({ children }: { children: React.ReactN
     );
   }
 
-  const showIntroChrome = phase === "intro" || phase === "dismissing";
-  const docked = phase !== "intro";
-  const animateDock = phase === "dismissing" && !reducedMotion;
+  const showIntroChrome = phase === "intro" || phase === "shrinking" || phase === "inverting";
+  const docked = phase === "shrinking" || phase === "inverting" || phase === "done";
+  const inverted = phase === "inverting" || phase === "done";
+  const animateTransform = phase === "shrinking";
+  const animateColor = phase === "inverting";
 
   const markState: MarkState =
     phase === "intro"
@@ -73,10 +87,17 @@ export default function SiteIntroProvider({ children }: { children: React.ReactN
   return (
     <IntroReadyProvider value={phase === "done"}>
       <Nav />
-      <MonogramLogo docked={docked} animateDock={animateDock} markState={markState} />
+      <MonogramLogo
+        docked={docked}
+        animateTransform={animateTransform}
+        inverted={inverted}
+        animateColor={animateColor}
+        markState={markState}
+      />
       {showIntroChrome && (
         <IntroAnimation
-          exiting={phase === "dismissing"}
+          textExiting={phase === "shrinking" || phase === "inverting"}
+          backgroundInverting={phase === "inverting"}
           reducedMotion={reducedMotion}
           reducedSettled={reducedSettled}
           onDismiss={handleDismiss}

@@ -8,13 +8,16 @@
 }
 
 .card {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
   text-align: left;
 }
 
-.card.ready {
+.imageWrap {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.imageWrap.ready {
   opacity: 1;
   transform: translateY(0);
 }
@@ -24,10 +27,19 @@
   font-size: 13px;
   letter-spacing: 0.02em;
   color: #1c1a17;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.caption.ready {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card {
+  .imageWrap,
+  .caption {
     transition: opacity 0.3s ease;
     transform: none;
   }
