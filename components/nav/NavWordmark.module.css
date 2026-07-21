@@ -1,16 +1,20 @@
 /*
- * Sits directly beneath the docked monogram (translate(24px, 16px)
- * scale(0.2) on a 202.3x240.57 box -> top-left (24,16), size
- * 40.46x48.114, bottom edge at y=64.114). Left-aligned to the
- * monogram's left edge rather than centered, since the wordmark at a
- * legible nav size is wider than the compact docked monogram.
+ * Same proportions as the intro's own monogram/wordmark lockup, just the
+ * whole block scaled by 0.2 (matching the docked monogram's own scale)
+ * instead of independently sized for legibility:
+ *   docked monogram: translate(24px, 16px) scale(0.2) on 202.3x240.57
+ *     -> top-left (24,16), size 40.46x48.114
+ *   intro gap (monogram -> wordmark) 28px * 0.2 = 5.6px
+ *   intro wordmark height 15px * 0.2 = 3px, width 171.6667px * 0.2 = 34.3333px
+ * top = 16 + 48.114 + 5.6 = 69.71
+ * left (centered under monogram) = 24 + 40.46/2 - 34.3333/2 = 27.06
  */
 .wordmark {
   position: fixed;
-  top: 68px;
-  left: 24px;
-  height: 8px;
-  width: auto;
+  top: 69.71px;
+  left: 27.06px;
+  width: 34.33px;
+  height: auto;
   display: block;
   z-index: 100;
   /* Native art is white; forced black to read against the white nav. */
