@@ -1,0 +1,37 @@
+.frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #eee;
+}
+
+.photo,
+.sketch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease;
+}
+
+.sketch {
+  opacity: 0;
+}
+
+.frame:hover .photo,
+.frame:focus-within .photo {
+  opacity: 0;
+}
+
+.frame:hover .sketch,
+.frame:focus-within .sketch {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo,
+  .sketch {
+    transition: opacity 0.15s ease;
+  }
+}

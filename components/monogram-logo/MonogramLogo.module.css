@@ -1,0 +1,151 @@
+/*
+ * Shared, persistent J+P monogram. Lives outside the intro overlay's DOM
+ * subtree so it survives the overlay unmounting and becomes the permanent
+ * nav logo. Position is expressed purely as `transform: translate() scale()`
+ * on a fixed 0,0-anchored box so the CSS transition between the "intro"
+ * (centered, full size) and "docked" (nav, small) states can be a single
+ * animatable property (classic FLIP technique, computed at build time
+ * instead of via runtime measurement).
+ */
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 202.3px;
+  height: 240.57px;
+  transform-origin: top left;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Centered at full size, matching the combined intro block (monogram +
+   wordmark + subtext) so the group reads as one vertically-centered unit. */
+.wrapper.intro {
+  --intro-scale: 1;
+  transform: translate(
+      calc(50vw - 101.15px * var(--intro-scale)),
+      calc(50vh - 160.9166px * var(--intro-scale))
+    )
+    scale(var(--intro-scale));
+}
+
+/* Docked into the nav bar, top-left. */
+.wrapper.docked {
+  transform: translate(24px, 16px) scale(0.2);
+}
+
+.wrapper.animateDock {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 640px) {
+  .wrapper.intro {
+    --intro-scale: 0.85;
+  }
+}
+
+@media (max-width: 420px) {
+  .wrapper.intro {
+    --intro-scale: 0.68;
+  }
+}
+
+@media (max-width: 340px) {
+  .wrapper.intro {
+    --intro-scale: 0.56;
+  }
+}
+
+.markJ,
+.markP {
+  position: absolute;
+  opacity: 1;
+  /* Native art is white (designed for the black intro backdrop); forced to
+     black once docked against the white nav. Transitions alongside the
+     position/scale so the color change reads as part of the same motion. */
+  filter: brightness(1);
+}
+
+.wrapper.animateDock .markJ,
+.wrapper.animateDock .markP {
+  transition: filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wrapper.docked .markJ,
+.wrapper.docked .markP {
+  filter: brightness(0);
+}
+
+.markJ {
+  left: 0;
+  top: 0;
+  width: 100.24px;
+  height: 180.43px;
+}
+
+.markP {
+  left: 71.08px;
+  top: 56.5px;
+  width: 131.22px;
+  height: 184.07px;
+}
+
+.markJ.entrance {
+  opacity: 0;
+  transform: translateY(-80px);
+  animation: dropIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+
+.markP.entrance {
+  opacity: 0;
+  transform: translateY(80px);
+  animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* prefers-reduced-motion: skip the keyframe animation, settle to final
+   state after a brief pause instead. */
+.markJ.reduced,
+.markP.reduced {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.markJ.reducedSettled,
+.markP.reducedSettled {
+  opacity: 1;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

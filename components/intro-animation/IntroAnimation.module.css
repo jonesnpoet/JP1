@@ -2,12 +2,9 @@
   position: fixed;
   inset: 0;
   z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  background-color: #fff;
+  background-color: #000;
   transition: opacity 0.7s ease, visibility 0.7s ease;
   opacity: 1;
   visibility: visible;
@@ -19,64 +16,25 @@
   pointer-events: none;
 }
 
+/*
+ * The monogram now lives in <MonogramLogo />, positioned independently so it
+ * can survive this overlay unmounting. To keep the wordmark/subtext reading
+ * as part of the same centered group, this stack is pinned to a top offset
+ * computed from the same block math as the monogram's intro position:
+ * blockTop = 50vh - (totalGroupHeight / 2), stackTop = blockTop + monogramHeight + gap.
+ * (monogram 240.57px + 28px gap = 268.57px; half the combined group height,
+ * 240.57 + 28 + 15 + 28 + 10.2632 = 321.8332px, is 160.9166px.)
+ */
 .stack {
+  --intro-scale: 1;
+  position: fixed;
+  top: calc(50vh + 107.6534px * var(--intro-scale));
+  left: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: scale(1);
-}
-
-.markContainer {
-  position: relative;
-  width: 202.3px;
-  height: 240.57px;
-  margin-bottom: 28px;
-}
-
-.markJ {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100.24px;
-  height: 180.43px;
-  opacity: 0;
-  transform: translateY(-80px);
-  animation: dropIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
-  filter: brightness(0);
-}
-
-.markP {
-  position: absolute;
-  left: 71.08px;
-  top: 56.5px;
-  width: 131.22px;
-  height: 184.07px;
-  opacity: 0;
-  transform: translateY(80px);
-  animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
-  filter: brightness(0);
-}
-
-@keyframes dropIn {
-  from {
-    opacity: 0;
-    transform: translateY(-80px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes riseIn {
-  from {
-    opacity: 0;
-    transform: translateY(80px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  transform-origin: top center;
+  transform: translateX(-50%) scale(var(--intro-scale));
 }
 
 .wordmarkWrap {
@@ -90,7 +48,6 @@
   height: 15px;
   width: auto;
   display: block;
-  filter: brightness(0);
 }
 
 .subtextWrap {
@@ -103,7 +60,6 @@
   width: 130px;
   height: auto;
   display: block;
-  filter: brightness(0);
 }
 
 @keyframes fadeUp {
@@ -118,7 +74,7 @@
 }
 
 .hintWrap {
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: 48px;
   transform: translateX(-50%);
@@ -131,7 +87,7 @@
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #000;
+  color: #b8b2a6;
 }
 
 .srOnly {
@@ -147,8 +103,6 @@
 }
 
 /* prefers-reduced-motion: skip keyframe animation, settle to final state after a brief pause */
-.reduced .markJ,
-.reduced .markP,
 .reduced .wordmarkWrap,
 .reduced .subtextWrap,
 .reduced .hint {
@@ -158,29 +112,36 @@
   transition: opacity 0.3s ease;
 }
 
-.reduced.settled .markJ,
-.reduced.settled .markP,
 .reduced.settled .wordmarkWrap,
 .reduced.settled .subtextWrap,
 .reduced.settled .hint {
   opacity: 1;
 }
 
-/* proportional scaling on smaller viewports */
+/* Fade the text out quickly on dismiss, ahead of the slower overlay/monogram motion. */
+.exiting .wordmarkWrap,
+.exiting .subtextWrap,
+.exiting .hint {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: none;
+}
+
+/* proportional scaling on smaller viewports, matching the monogram's own breakpoints */
 @media (max-width: 640px) {
   .stack {
-    transform: scale(0.85);
+    --intro-scale: 0.85;
   }
 }
 
 @media (max-width: 420px) {
   .stack {
-    transform: scale(0.68);
+    --intro-scale: 0.68;
   }
 }
 
 @media (max-width: 340px) {
   .stack {
-    transform: scale(0.56);
+    --intro-scale: 0.56;
   }
 }

@@ -1,62 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import styles from "./IntroAnimation.module.css";
 
-const SESSION_KEY = "jp-intro-seen";
-const EXIT_DURATION_MS = 700;
-const REDUCED_MOTION_SETTLE_MS = 300;
-
 export interface IntroAnimationProps {
-  /**
-   * Gate the intro with sessionStorage so it only plays once per session.
-   * Set to false to reuse this component as an ungated loading state elsewhere.
-   */
-  persist?: boolean;
-  /** Called once the exit transition finishes and the overlay unmounts. */
-  onExit?: () => void;
+  /** True while the dismiss transition is playing (fades backdrop + text out). */
+  exiting: boolean;
+  reducedMotion: boolean;
+  /** After the reduced-motion settle delay, fades content in without the keyframe motion. */
+  reducedSettled: boolean;
+  onDismiss: () => void;
 }
 
-export default function IntroAnimation({ persist = true, onExit }: IntroAnimationProps) {
-  const [mounted, setMounted] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [exiting, setExiting] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [settled, setSettled] = useState(false);
-
-  useEffect(() => {
-    // Reading sessionStorage/matchMedia requires the browser, so this client-only
-    // reveal can't be derived during render without risking a hydration mismatch.
-    const alreadySeen = persist && sessionStorage.getItem(SESSION_KEY);
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-    setVisible(!alreadySeen);
-    setReducedMotion(mediaQuery.matches);
-
-    if (!alreadySeen && mediaQuery.matches) {
-      const settleTimer = setTimeout(() => setSettled(true), REDUCED_MOTION_SETTLE_MS);
-      return () => clearTimeout(settleTimer);
-    }
-  }, [persist]);
-
-  if (!mounted || !visible) return null;
-
-  const handleDismiss = () => {
-    if (exiting) return;
-    setExiting(true);
-    if (persist) sessionStorage.setItem(SESSION_KEY, "1");
-    window.setTimeout(() => {
-      setVisible(false);
-      onExit?.();
-    }, EXIT_DURATION_MS);
-  };
-
+export default function IntroAnimation({
+  exiting,
+  reducedMotion,
+  reducedSettled,
+  onDismiss,
+}: IntroAnimationProps) {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      handleDismiss();
+      onDismiss();
     }
   };
 
@@ -64,7 +28,7 @@ export default function IntroAnimation({ persist = true, onExit }: IntroAnimatio
     styles.overlay,
     exiting && styles.exiting,
     reducedMotion && styles.reduced,
-    settled && styles.settled,
+    reducedSettled && styles.settled,
   ]
     .filter(Boolean)
     .join(" ");
@@ -72,25 +36,18 @@ export default function IntroAnimation({ persist = true, onExit }: IntroAnimatio
   return (
     <div
       className={overlayClassName}
-      onClick={handleDismiss}
+      onClick={onDismiss}
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
       aria-label="Enter site"
     >
       <div className={styles.stack}>
-        <div className={styles.markContainer} aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/J%20Jones.svg" alt="" className={styles.markJ} />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/Poet%20P.svg" alt="" className={styles.markP} />
-        </div>
-
         <div className={styles.wordmarkWrap}>
           <span className={styles.srOnly}>Jones + Poet</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/JONES%20%2B%20POET%20FOR%20SITE.svg"
+            src="/assets/jones-poet-perfect.svg"
             alt=""
             aria-hidden="true"
             className={styles.wordmarkImg}
@@ -101,7 +58,7 @@ export default function IntroAnimation({ persist = true, onExit }: IntroAnimatio
           <span className={styles.srOnly}>Interior Design</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/Interior%20Design%20Asset.svg"
+            src="/assets/interior-design-asset.svg"
             alt=""
             aria-hidden="true"
             className={styles.subtextImg}

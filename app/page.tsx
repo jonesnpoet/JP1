@@ -1,14 +1,9 @@
-import IntroAnimation from "@/components/intro-animation";
+import ProjectGrid from "@/components/project-grid/ProjectGrid";
 
 export default function Home() {
   return (
-    <>
-      <IntroAnimation />
-      <main className="flex min-h-screen flex-col items-center justify-center bg-[#f3efe9] px-6 text-center text-[#1c1a17]">
-        <p className="max-w-md text-sm tracking-wide">
-          Homepage content goes here — hero, nav, etc.
-        </p>
-      </main>
-    </>
+    <main className="flex min-h-screen flex-col items-center bg-white px-6 pt-32 pb-24 text-[#1c1a17]">
+      <ProjectGrid />
+    </main>
   );
 }
