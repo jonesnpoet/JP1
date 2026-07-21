@@ -1,0 +1,24 @@
+/*
+ * Sits directly beneath the docked monogram (translate(24px, 16px)
+ * scale(0.2) on a 202.3x240.57 box -> top-left (24,16), size
+ * 40.46x48.114, bottom edge at y=64.114). Left-aligned to the
+ * monogram's left edge rather than centered, since the wordmark at a
+ * legible nav size is wider than the compact docked monogram.
+ */
+.wordmark {
+  position: fixed;
+  top: 68px;
+  left: 24px;
+  height: 8px;
+  width: auto;
+  display: block;
+  z-index: 100;
+  /* Native art is white; forced black to read against the white nav. */
+  filter: brightness(0);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.wordmark.ready {
+  opacity: 1;
+}
