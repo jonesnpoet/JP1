@@ -1,19 +1,20 @@
 /*
- * Same proportions as the intro's own monogram/wordmark lockup, just the
- * whole block scaled by 0.2 (matching the docked monogram's own scale)
- * instead of independently sized for legibility:
+ * Base proportions come from the intro's own monogram/wordmark lockup
+ * scaled by 0.2 (matching the docked monogram's own scale), then bumped
+ * 60% larger per request:
  *   docked monogram: translate(24px, 16px) scale(0.2) on 202.3x240.57
  *     -> top-left (24,16), size 40.46x48.114
  *   intro gap (monogram -> wordmark) 28px * 0.2 = 5.6px
- *   intro wordmark height 15px * 0.2 = 3px, width 171.6667px * 0.2 = 34.3333px
- * top = 16 + 48.114 + 5.6 = 69.71
- * left (centered under monogram) = 24 + 40.46/2 - 34.3333/2 = 27.06
+ *   base wordmark width 171.6667px * 0.2 = 34.3333px, *1.6 = 54.9333px
+ * top = 16 + 48.114 + 5.6 = 69.71 (unchanged; gap is measured from the
+ *   monogram's bottom edge, not affected by the wordmark's own size)
+ * left (centered under monogram) = 24 + 40.46/2 - 54.9333/2 = 17.76
  */
 .wordmark {
   position: fixed;
   top: 69.71px;
-  left: 27.06px;
-  width: 34.33px;
+  left: 17.76px;
+  width: 54.93px;
   height: auto;
   display: block;
   z-index: 100;
