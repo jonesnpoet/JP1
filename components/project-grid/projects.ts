@@ -12,7 +12,8 @@ export interface Project {
   title: string;
   /** Photo shown by default. */
   image: string;
-  /** Sketch cross-faded in on hover/focus. */
+  /** Image cross-faded in on hover/focus -- usually a sketch, but can be
+   *  any alternate treatment (e.g. a "coming soon" overlay). */
   sketch: string;
   /** Full landscape scene, used as the case study page's hero (1537x1023). */
   hero: string;
@@ -35,7 +36,10 @@ export const PROJECTS: Project[] = [
     slug: "maple-house",
     title: "Maple House",
     image: "/projects/left.png",
-    sketch: "/projects/left-hover.png",
+    // "Coming soon" overlay (dimmed photo + rotated orange text baked
+    // into the image), not a sketch -- this project isn't ready to show
+    // its real detail shot yet.
+    sketch: "/projects/maple-house/left-hover.png",
     hero: "/projects/left-full.png",
   },
   {
