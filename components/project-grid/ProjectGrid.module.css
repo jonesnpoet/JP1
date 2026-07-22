@@ -1,32 +1,28 @@
-/* Large-format editorial layout: a small number of generously-sized
-   images stacked vertically, rather than a dense multi-column grid.
-   --project-max-width caps each image (see ProjectImage.module.css)
-   well short of the full 1200px list width, so there's real margin on
-   either side instead of edge-to-edge stretching. */
+/* 3-column editorial grid, matching the reference layout: cards side by
+   side in one row, each roughly its native image size, with a generous
+   gutter between them. Falls back to a single column on narrow viewports. */
 .list {
-  --project-max-width: 640px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 64px;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+@media (max-width: 900px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+}
+
 .card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  /* Grid items default to a content-based min-width, which can let a wide
+     image push the column wider than its 1fr share and overflow the row. */
+  min-width: 0;
 }
 
 .imageWrap {
-  /* Without an explicit width, this flex item (not stretched, since
-     .card uses align-items: center) shrinks to fit its content. Its
-     child (.frame) is width: 100%, a percentage that can't resolve
-     against that indeterminate size, so it collapses to zero and the
-     image disappears. Giving it a definite width fixes that. */
   width: 100%;
   opacity: 0;
   transform: translateY(16px);
@@ -39,8 +35,6 @@
 }
 
 .caption {
-  width: 100%;
-  max-width: var(--project-max-width);
   margin-top: 8px;
   font-size: 13px;
   letter-spacing: 0.02em;

@@ -6,13 +6,6 @@
   aspect-ratio: 298 / 494;
   background: #eee;
   width: 100%;
-  /* --project-max-width (set on ProjectGrid's .list) keeps this well
-     short of the full list width for real side margins; max-height
-     keeps a single card from exceeding the viewport. The browser picks
-     whichever constraint is tighter while preserving aspect-ratio. */
-  max-width: var(--project-max-width, 640px);
-  max-height: 70vh;
-  margin: 0 auto;
 }
 
 .photo,
