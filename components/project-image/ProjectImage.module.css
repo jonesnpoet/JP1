@@ -1,7 +1,9 @@
 .frame {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  /* Matches the real project photos (298x494 portrait), not the 4:3
+     landscape placeholder ratio used before real assets existed. */
+  aspect-ratio: 298 / 494;
   background: #eee;
 }
 
