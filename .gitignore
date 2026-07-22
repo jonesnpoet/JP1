@@ -36,6 +36,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# oversized media that exceeds GitHub's 100MB push limit -- present on
+# disk locally, not committed. Needs Git LFS or external hosting to
+# actually ship; see components/project-grid/projects.ts (maple-house
+# comingSoon.media).
+/public/projects/maple-house/coming-soon-inspo.gif
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

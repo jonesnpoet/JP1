@@ -16,14 +16,23 @@
   }
 }
 
+/* Shared by the <Link> (normal projects) and <button> (coming-soon
+   projects) variants -- reset button chrome so both render identically. */
 .card {
   /* Grid items default to a content-based min-width, which can let a wide
      image push the column wider than its 1fr share and overflow the row. */
   min-width: 0;
   display: block;
+  width: 100%;
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: left;
 }
 
 .imageWrap {

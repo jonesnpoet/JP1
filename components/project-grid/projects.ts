@@ -26,6 +26,13 @@ export interface Project {
    * finished photo].
    */
   plates?: [string, string, string, string];
+  /**
+   * If set, clicking this card opens a "coming soon" modal with this
+   * media instead of navigating to a case study page.
+   */
+  comingSoon?: {
+    media: string;
+  };
 }
 
 // Real photo/sketch/hero sets, dropped in at /public/projects/. Titles,
@@ -41,6 +48,9 @@ export const PROJECTS: Project[] = [
     // its real detail shot yet.
     sketch: "/projects/maple-house/left-hover.png",
     hero: "/projects/left-full.png",
+    comingSoon: {
+      media: "/projects/maple-house/coming-soon-inspo.gif",
+    },
   },
   {
     slug: "harbor-loft",
