@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SiteIntroProvider from "@/components/site-intro/SiteIntroProvider";
 import ProjectTransitionProvider from "@/components/project-transition/ProjectTransitionProvider";
+import Footer from "@/components/footer/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,7 +32,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ProjectTransitionProvider>
-          <SiteIntroProvider>{children}</SiteIntroProvider>
+          <SiteIntroProvider>
+            {children}
+            <Footer />
+          </SiteIntroProvider>
         </ProjectTransitionProvider>
       </body>
     </html>

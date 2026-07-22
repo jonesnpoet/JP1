@@ -1,0 +1,16 @@
+.footer {
+  width: 100%;
+  padding: 64px 24px 48px;
+  background: #fff;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mark {
+  display: block;
+  width: 100%;
+  height: auto;
+}
