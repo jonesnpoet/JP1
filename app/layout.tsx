@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SiteIntroProvider from "@/components/site-intro/SiteIntroProvider";
+import ProjectTransitionProvider from "@/components/project-transition/ProjectTransitionProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,7 +30,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SiteIntroProvider>{children}</SiteIntroProvider>
+        <ProjectTransitionProvider>
+          <SiteIntroProvider>{children}</SiteIntroProvider>
+        </ProjectTransitionProvider>
       </body>
     </html>
   );

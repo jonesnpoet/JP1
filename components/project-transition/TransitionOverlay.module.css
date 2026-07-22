@@ -1,0 +1,38 @@
+.overlay {
+  position: fixed;
+  z-index: 90; /* above page content, below Nav (100) so Nav stays crisp on top */
+  overflow: hidden;
+  pointer-events: none;
+  background: #eee;
+}
+
+/* Only transition top/left/width/height once explicitly flipped to
+   "animating" -- the initial render must land exactly on the origin rect
+   with no transition, or the very first frame would itself animate. */
+.overlay.animating {
+  transition:
+    top 1s cubic-bezier(0.65, 0, 0.35, 1),
+    left 1s cubic-bezier(0.65, 0, 0.35, 1),
+    width 1s cubic-bezier(0.65, 0, 0.35, 1),
+    height 1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay.animating .img {
+  transition: opacity 1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+}

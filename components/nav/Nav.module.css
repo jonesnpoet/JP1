@@ -11,6 +11,14 @@
   align-items: center;
   justify-content: flex-end;
   padding: 0 36px;
+  transition: opacity 0.4s ease;
+}
+
+/* Recedes during a project transition (push-through-the-window), same
+   fast timing as the grid's own peripheral fade. */
+.nav.fading {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .links {
