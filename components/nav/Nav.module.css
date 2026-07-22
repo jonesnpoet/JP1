@@ -7,4 +7,26 @@
   background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 36px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.link {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1c1a17;
+  text-decoration: none;
+}
+
+.link:hover {
+  opacity: 0.6;
 }

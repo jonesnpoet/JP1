@@ -1,7 +1,9 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+/* Large-format editorial layout: a small number of full-width images
+   stacked vertically, rather than a dense multi-column grid. */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
