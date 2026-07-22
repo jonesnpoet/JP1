@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useIntroReady } from "@/components/site-intro/intro-ready-context";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import ProjectImage from "@/components/project-image/ProjectImage";
-import ComingSoonModal from "./ComingSoonModal";
+import { COMING_SOON_HERO_ASPECT } from "@/components/case-study/ComingSoonCaseStudy";
 import { PROJECTS, type Project } from "./projects";
 import styles from "./ProjectGrid.module.css";
 
@@ -16,8 +16,6 @@ const IMAGE_FADE_MS = 600;
 export default function ProjectGrid() {
   const imagesReady = useIntroReady();
   const [titlesReady, setTitlesReady] = useState(false);
-  const [comingSoonProject, setComingSoonProject] = useState<Project | null>(null);
-  const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!imagesReady) return;
@@ -28,11 +26,6 @@ export default function ProjectGrid() {
     return () => clearTimeout(timer);
   }, [imagesReady]);
 
-  const handleCloseModal = () => {
-    setComingSoonProject(null);
-    triggerRef.current?.focus();
-  };
-
   return (
     <div className={styles.list}>
       {PROJECTS.map((project, i) => (
@@ -42,19 +35,8 @@ export default function ProjectGrid() {
           index={i}
           imagesReady={imagesReady}
           titlesReady={titlesReady}
-          onComingSoon={(triggerEl) => {
-            triggerRef.current = triggerEl;
-            setComingSoonProject(project);
-          }}
         />
       ))}
-      {comingSoonProject?.comingSoon && (
-        <ComingSoonModal
-          title={comingSoonProject.title}
-          media={comingSoonProject.comingSoon.media}
-          onClose={handleCloseModal}
-        />
-      )}
     </div>
   );
 }
@@ -64,13 +46,11 @@ function ProjectCard({
   index,
   imagesReady,
   titlesReady,
-  onComingSoon,
 }: {
   project: Project;
   index: number;
   imagesReady: boolean;
   titlesReady: boolean;
-  onComingSoon: (triggerEl: HTMLElement) => void;
 }) {
   const { activeSlug, beginForward, registerGridCard } = useProjectTransition();
   const imageWrapRef = useRef<HTMLDivElement>(null);
@@ -82,47 +62,6 @@ function ProjectCard({
   const isActive = activeSlug === project.slug;
   const isOtherFading = activeSlug !== null && !isActive;
 
-  const imageWrap = (
-    <div
-      ref={imageWrapRef}
-      className={[
-        styles.imageWrap,
-        imagesReady && styles.ready,
-        isActive && styles.hidden,
-        isOtherFading && styles.fadingAway,
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      style={{ transitionDelay: imagesReady ? `${index * STAGGER_MS}ms` : "0ms" }}
-    >
-      <ProjectImage title={project.title} image={project.image} sketch={project.sketch} />
-    </div>
-  );
-
-  const caption = (
-    <p
-      className={[styles.caption, titlesReady && styles.ready, isActive && styles.fadingAway]
-        .filter(Boolean)
-        .join(" ")}
-      style={{ transitionDelay: titlesReady ? `${index * STAGGER_MS}ms` : "0ms" }}
-    >
-      {project.title}
-    </p>
-  );
-
-  if (project.comingSoon) {
-    return (
-      <button
-        type="button"
-        className={styles.card}
-        onClick={(event) => onComingSoon(event.currentTarget)}
-      >
-        {imageWrap}
-        {caption}
-      </button>
-    );
-  }
-
   const handleClick = (event: React.MouseEvent) => {
     // Let modified/non-primary clicks behave normally (new tab, etc).
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
@@ -130,7 +69,11 @@ function ProjectCard({
     if (!imageWrapRef.current) return;
     beginForward({
       slug: project.slug,
-      heroSrc: project.hero,
+      // The "coming soon" page's hero is the inspo GIF, not a photo --
+      // hand off to whatever the destination page will actually show,
+      // at that page's own (differently-cropped) aspect ratio.
+      heroSrc: project.comingSoon ? project.comingSoon.media : project.hero,
+      heroAspect: project.comingSoon ? COMING_SOON_HERO_ASPECT : undefined,
       thumbSrc: project.image,
       originEl: imageWrapRef.current,
     });
@@ -138,8 +81,28 @@ function ProjectCard({
 
   return (
     <Link href={`/projects/${project.slug}`} className={styles.card} onClick={handleClick}>
-      {imageWrap}
-      {caption}
+      <div
+        ref={imageWrapRef}
+        className={[
+          styles.imageWrap,
+          imagesReady && styles.ready,
+          isActive && styles.hidden,
+          isOtherFading && styles.fadingAway,
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        style={{ transitionDelay: imagesReady ? `${index * STAGGER_MS}ms` : "0ms" }}
+      >
+        <ProjectImage title={project.title} image={project.image} sketch={project.sketch} />
+      </div>
+      <p
+        className={[styles.caption, titlesReady && styles.ready, isActive && styles.fadingAway]
+          .filter(Boolean)
+          .join(" ")}
+        style={{ transitionDelay: titlesReady ? `${index * STAGGER_MS}ms` : "0ms" }}
+      >
+        {project.title}
+      </p>
     </Link>
   );
 }

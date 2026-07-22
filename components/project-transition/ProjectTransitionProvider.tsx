@@ -38,9 +38,9 @@ function rectOf(el: HTMLElement): Rect {
   return { top: r.top, left: r.left, width: r.width, height: r.height };
 }
 
-function heroRect(): Rect {
+function heroRect(aspect: number): Rect {
   const width = window.innerWidth;
-  return { top: NAV_HEIGHT, left: 0, width, height: width / HERO_ASPECT };
+  return { top: NAV_HEIGHT, left: 0, width, height: width / aspect };
 }
 
 function nextFrame(fn: () => void) {
@@ -62,7 +62,7 @@ export default function ProjectTransitionProvider({ children }: { children: Reac
   const pendingBackwardSlug = useRef<string | null>(null);
 
   const beginForward = useCallback(
-    ({ slug, heroSrc, thumbSrc, originEl }: BeginTransitionArgs) => {
+    ({ slug, heroSrc, thumbSrc, originEl, heroAspect }: BeginTransitionArgs) => {
       if (phaseRef.current.kind !== "idle") return;
 
       if (prefersReducedMotion()) {
@@ -71,7 +71,7 @@ export default function ProjectTransitionProvider({ children }: { children: Reac
       }
 
       const from = rectOf(originEl);
-      const to = heroRect();
+      const to = heroRect(heroAspect ?? HERO_ASPECT);
       setPhase({ kind: "forward", slug, thumbSrc, heroSrc, from, to, animating: false });
       nextFrame(() => {
         setPhase((p) => (p.kind === "forward" && p.slug === slug ? { ...p, animating: true } : p));

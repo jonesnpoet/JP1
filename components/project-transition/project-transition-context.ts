@@ -14,6 +14,12 @@ export interface BeginTransitionArgs {
   heroSrc: string;
   thumbSrc: string;
   originEl: HTMLElement;
+  /**
+   * Forward only: the destination hero's width/height ratio, used to
+   * compute the overlay's "arrived" rect so it matches the real page.
+   * Defaults to the standard case study hero ratio (1537/1023).
+   */
+  heroAspect?: number;
 }
 
 export interface ProjectTransitionContextValue {
