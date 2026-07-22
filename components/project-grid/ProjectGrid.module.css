@@ -1,8 +1,13 @@
-/* Large-format editorial layout: a small number of full-width images
-   stacked vertically, rather than a dense multi-column grid. */
+/* Large-format editorial layout: a small number of generously-sized
+   images stacked vertically, rather than a dense multi-column grid.
+   --project-max-width caps each image (see ProjectImage.module.css)
+   well short of the full 1200px list width, so there's real margin on
+   either side instead of edge-to-edge stretching. */
 .list {
+  --project-max-width: 640px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 64px;
   width: 100%;
   max-width: 1200px;
@@ -10,7 +15,10 @@
 }
 
 .card {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .imageWrap {
@@ -25,10 +33,13 @@
 }
 
 .caption {
+  width: 100%;
+  max-width: var(--project-max-width);
   margin-top: 8px;
   font-size: 13px;
   letter-spacing: 0.02em;
   color: #1c1a17;
+  text-align: left;
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.4s ease, transform 0.4s ease;
