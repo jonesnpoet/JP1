@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import styles from "./AboutView.module.css";
 
 const BODY_PARAGRAPHS = [
@@ -13,12 +16,39 @@ const CLOSING_PARAGRAPHS = [
 ];
 
 export default function AboutView() {
+  const titleRef = useRef<HTMLDivElement>(null);
+  const [titleVisible, setTitleVisible] = useState(false);
+
+  useEffect(() => {
+    const el = titleRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTitleVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className={styles.page}>
       <div className={styles.container}>
+        <div ref={titleRef} className={styles.titleWrap}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/jp-about-title.svg"
+            alt="Jones + Poet — About"
+            className={[styles.titleImg, titleVisible && styles.titleVisible].filter(Boolean).join(" ")}
+          />
+        </div>
+
         <div className={styles.grid}>
           <div>
-            <h1 className={styles.title}>Jones + Poet</h1>
             <div className={styles.body}>
               {BODY_PARAGRAPHS.map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
