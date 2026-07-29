@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <main className="bg-[#ece6d1]">
+    <main className="bg-[#f9f4e3]">
       <ContactView />
     </main>
   );
