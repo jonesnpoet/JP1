@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(75, 26, 36, 0.92);
+  background: rgba(105, 100, 84, 0.82);
   opacity: 0;
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   touch-action: pan-y;
