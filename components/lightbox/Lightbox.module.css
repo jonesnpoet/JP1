@@ -1,0 +1,126 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(75, 26, 36, 0.92);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  touch-action: pan-y;
+}
+
+.overlay.visible {
+  opacity: 1;
+}
+
+.image {
+  max-width: 88vw;
+  max-height: 84vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.image.imageVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.close {
+  position: fixed;
+  top: 28px;
+  right: 32px;
+  z-index: 2001;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 18px;
+  line-height: 1;
+  color: rgba(249, 244, 227, 0.7);
+  transition: color 0.2s ease;
+}
+
+.close:hover {
+  color: #f9f4e3;
+}
+
+.arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2001;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 16px;
+  font-size: 28px;
+  line-height: 1;
+  color: rgba(249, 244, 227, 0.6);
+  transition: color 0.2s ease;
+}
+
+.arrow:hover {
+  color: #f9f4e3;
+}
+
+.prev {
+  left: 12px;
+}
+
+.next {
+  right: 12px;
+}
+
+.counter {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2001;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(249, 244, 227, 0.6);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .image {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .arrow {
+    padding: 12px;
+    font-size: 22px;
+  }
+
+  .prev {
+    left: 4px;
+  }
+
+  .next {
+    right: 4px;
+  }
+
+  .image {
+    max-width: 94vw;
+    max-height: 78vh;
+  }
+}

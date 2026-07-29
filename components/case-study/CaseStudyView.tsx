@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
-import type { Project } from "@/components/project-grid/projects";
+import { getPageImages, type Project } from "@/components/project-grid/projects";
+import Lightbox from "@/components/lightbox/Lightbox";
 import TextImageBlock from "./TextImageBlock";
 import ImageRow from "./ImageRow";
 import TextCallout from "./TextCallout";
@@ -14,6 +15,13 @@ export default function CaseStudyView({ project }: { project: Project }) {
   const introRef = useRef<HTMLDivElement>(null);
   const [titleVisible, setTitleVisible] = useState(false);
   const { transitioning, beginBackward } = useProjectTransition();
+
+  const pageImages = useMemo(() => getPageImages(project), [project]);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prevImage = () =>
+    setLightboxIndex((i) => (i === null ? null : (i - 1 + pageImages.length) % pageImages.length));
+  const nextImage = () => setLightboxIndex((i) => (i === null ? null : (i + 1) % pageImages.length));
 
   useEffect(() => {
     const el = introRef.current;
@@ -54,6 +62,7 @@ export default function CaseStudyView({ project }: { project: Project }) {
           className={styles.heroImg}
           loading="eager"
           fetchPriority="high"
+          onClick={() => setLightboxIndex(0)}
         />
       </div>
 
@@ -69,17 +78,51 @@ export default function CaseStudyView({ project }: { project: Project }) {
           <p className={styles.description}>{project.description}</p>
         </div>
 
-        {project.sections?.map((section, i) => {
-          switch (section.type) {
-            case "text-image":
-              return <TextImageBlock key={i} text={section.text} image={section.image} />;
-            case "image-row":
-              return <ImageRow key={i} images={section.images} />;
-            case "callout":
-              return <TextCallout key={i} text={section.text} />;
-          }
-        })}
+        {(() => {
+          // Hero is always index 0 in pageImages; walk sections in the same
+          // order getPageImages does, handing each rendered image its
+          // matching flat index so the lightbox can step through the whole
+          // page regardless of which section it was opened from.
+          let cursor = 1;
+          return project.sections?.map((section, i) => {
+            switch (section.type) {
+              case "text-image": {
+                const imageIndex = cursor++;
+                return (
+                  <TextImageBlock
+                    key={i}
+                    text={section.text}
+                    image={section.image}
+                    imageIndex={imageIndex}
+                    onImageClick={setLightboxIndex}
+                  />
+                );
+              }
+              case "image-row": {
+                const imageIndices: [number, number] = [cursor++, cursor++];
+                return (
+                  <ImageRow
+                    key={i}
+                    images={section.images}
+                    imageIndices={imageIndices}
+                    onImageClick={setLightboxIndex}
+                  />
+                );
+              }
+              case "callout":
+                return <TextCallout key={i} text={section.text} />;
+            }
+          });
+        })()}
       </div>
+
+      <Lightbox
+        images={pageImages}
+        index={lightboxIndex}
+        onClose={closeLightbox}
+        onPrev={prevImage}
+        onNext={nextImage}
+      />
     </>
   );
 }

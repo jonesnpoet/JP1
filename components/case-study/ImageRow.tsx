@@ -7,7 +7,16 @@ import styles from "./ImageRow.module.css";
  * source photo's native dimensions. Reusable across any project's case
  * study grid.
  */
-export default function ImageRow({ images }: { images: [CaseStudyImage, CaseStudyImage] }) {
+export default function ImageRow({
+  images,
+  imageIndices,
+  onImageClick,
+}: {
+  images: [CaseStudyImage, CaseStudyImage];
+  /** Each image's position in the page's flat lightbox image list. */
+  imageIndices?: [number, number];
+  onImageClick?: (index: number) => void;
+}) {
   return (
     <div className={styles.row}>
       {images.map((img, i) => (
@@ -19,6 +28,7 @@ export default function ImageRow({ images }: { images: [CaseStudyImage, CaseStud
           className={styles.image}
           style={img.focal ? { objectPosition: img.focal } : undefined}
           loading="lazy"
+          onClick={onImageClick && imageIndices ? () => onImageClick(imageIndices[i]) : undefined}
         />
       ))}
     </div>

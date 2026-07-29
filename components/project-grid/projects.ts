@@ -16,6 +16,21 @@ export type CaseStudySection =
   | { type: "image-row"; images: [CaseStudyImage, CaseStudyImage] }
   | { type: "callout"; text: string };
 
+/**
+ * Flat, ordered list of every clickable image on a case study page (hero
+ * first, then each section's images in render order). Used to drive the
+ * shared Lightbox so "next" from any image steps to whatever comes next on
+ * the page, regardless of which row/block it belongs to.
+ */
+export function getPageImages(project: Project): CaseStudyImage[] {
+  const images: CaseStudyImage[] = [{ src: project.hero, alt: project.heroAlt }];
+  for (const section of project.sections ?? []) {
+    if (section.type === "text-image") images.push(section.image);
+    else if (section.type === "image-row") images.push(...section.images);
+  }
+  return images;
+}
+
 export interface Project {
   slug: string;
   title: string;

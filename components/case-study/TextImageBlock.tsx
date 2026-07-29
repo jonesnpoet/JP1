@@ -10,11 +10,16 @@ export default function TextImageBlock({
   text,
   image,
   reverse = false,
+  imageIndex,
+  onImageClick,
 }: {
   text: string;
   image: CaseStudyImage;
   /** Flips to image-left/text-right. Defaults to text-left/image-right. */
   reverse?: boolean;
+  /** This image's position in the page's flat lightbox image list. */
+  imageIndex?: number;
+  onImageClick?: (index: number) => void;
 }) {
   return (
     <div className={[styles.block, reverse && styles.reverse].filter(Boolean).join(" ")}>
@@ -26,6 +31,7 @@ export default function TextImageBlock({
         className={styles.image}
         style={image.focal ? { objectPosition: image.focal } : undefined}
         loading="lazy"
+        onClick={onImageClick && imageIndex !== undefined ? () => onImageClick(imageIndex) : undefined}
       />
     </div>
   );
