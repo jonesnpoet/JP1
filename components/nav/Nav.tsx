@@ -25,8 +25,8 @@ export default function Nav() {
         <Link href="/about" className={styles.link}>
           About
         </Link>
-        <Link href="/furniture" className={styles.link}>
-          Furniture
+        <Link href="/contact" className={styles.link}>
+          Contact
         </Link>
       </nav>
     </header>

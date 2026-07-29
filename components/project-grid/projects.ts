@@ -1,56 +1,28 @@
-export interface ProjectDetails {
-  type: string;
-  program: string;
-  location: string;
-  year: string;
-  area: string;
-  client: string;
-}
-
 export interface Project {
   slug: string;
   title: string;
-  /** Photo shown by default. */
+  /** Photo shown by default on the homepage grid card. */
   image: string;
   /** Image cross-faded in on hover/focus -- usually a sketch, but can be
    *  any alternate treatment (e.g. a "coming soon" overlay). */
   sketch: string;
   /** Full landscape scene, used as the case study page's hero (1537x1023). */
   hero: string;
-  /** Spec-sheet rows shown beside the case study's plate images. */
-  details?: ProjectDetails;
-  /**
-   * Case study "plate" images below the hero, in display order. Each is
-   * pre-composed with its own cream card background baked in (no CSS
-   * card treatment needed): [large 1, large 2, sketch detail, matching
-   * finished photo].
-   */
-  plates?: [string, string, string, string];
-  /**
-   * If set, clicking this card opens a "coming soon" modal with this
-   * media instead of navigating to a case study page.
-   */
-  comingSoon?: {
-    media: string;
-  };
+  heroAlt: string;
+  /** Centered intro copy shown beneath the animated title. */
+  description: string;
 }
 
-// Real photo/sketch/hero sets, dropped in at /public/projects/. Titles,
-// locations, and spec-sheet details are still placeholders pending the
-// final project list.
 export const PROJECTS: Project[] = [
   {
     slug: "maple-house",
     title: "Maple House",
     image: "/projects/left.png",
-    // "Coming soon" overlay (dimmed photo + rotated orange text baked
-    // into the image), not a sketch -- this project isn't ready to show
-    // its real detail shot yet.
     sketch: "/projects/maple-house/left-hover.png",
     hero: "/projects/left-full.png",
-    comingSoon: {
-      media: "/projects/maple-house/coming-soon-inspo.gif",
-    },
+    heroAlt: "A bedroom corner in Maple House with a striped armchair, a carved wood dresser, and fresh tulips.",
+    description:
+      "Maple House is a full residential renovation completed in 2025, reworking roughly 3,200 square feet into a home that feels warm, layered, and considered. The goal was to bring balance to every room — pairing classic forms with rich materials so the finished spaces feel collected over time rather than assembled all at once.",
   },
   {
     slug: "harbor-loft",
@@ -58,6 +30,9 @@ export const PROJECTS: Project[] = [
     image: "/projects/mid.png",
     sketch: "/projects/mid-hover1.png",
     hero: "/projects/mid-full.png",
+    heroAlt: "A vanity in Harbor Loft with brass fixtures, wood cabinetry, and patterned wallpaper.",
+    description:
+      "Harbor Loft is a renovation completed in 2025 across approximately 1,800 square feet. The goal was to bring warmth and polish to every surface — brass fixtures, rich wood tones, and softly patterned finishes layered together so the space feels elevated yet lived-in.",
   },
   {
     slug: "birch-residence",
@@ -65,19 +40,8 @@ export const PROJECTS: Project[] = [
     image: "/projects/right.png",
     sketch: "/projects/right-hover.png",
     hero: "/projects/right-full.png",
-    details: {
-      type: "Residential",
-      program: "Interior Design",
-      location: "Milwaukee, WI",
-      year: "2023",
-      area: "300 sq ft",
-      client: "Private Residence",
-    },
-    plates: [
-      "/projects/birch-residence/l-1.png",
-      "/projects/birch-residence/l-2.png",
-      "/projects/birch-residence/l-3.png",
-      "/projects/birch-residence/l-4.png",
-    ],
+    heroAlt: "Walk-in shower in Birch Residence with pale blue vertical tile, brass fixtures, and a marble bench.",
+    description:
+      "Birch Residence is a bathroom renovation completed in 2025 within a compact 300-square-foot footprint. The goal was to make the most of a small space — soft blue tile, aged brass fixtures, and a restrained material palette combining to create a room that feels calm, elevated, and complete.",
   },
 ];

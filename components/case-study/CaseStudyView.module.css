@@ -18,7 +18,8 @@
 .body {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 48px 24px 96px;
+  padding: 0 24px 120px;
+  background: #fff;
   transition: opacity 0.4s ease;
 }
 
@@ -28,7 +29,7 @@
 
 .back {
   display: inline-block;
-  margin-bottom: 24px;
+  margin-top: 32px;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -40,114 +41,80 @@
   opacity: 0.6;
 }
 
+/* Centered intro: animated title + body copy, directly beneath the hero. */
+.intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 96px 0 120px;
+  text-align: center;
+}
+
 .title {
-  font-size: 24px;
-  letter-spacing: 0.01em;
-  margin-bottom: 16px;
-  color: #1c1a17;
-}
-
-.placeholder {
-  font-size: 14px;
-  color: rgba(28, 26, 23, 0.6);
-  max-width: 480px;
-}
-
-/*
- * Below the title: a details "spec sheet" on the left, centered against
- * the first large plate on the right, then a second plate stacked below
- * it, then a full-width sketch/photo pair at the bottom. The plate
- * images themselves already have their cream card background and
- * padding baked in (see public/projects/<slug>/l-*.png) -- this grid
- * only handles positioning, not any card treatment.
- */
-.contentGrid {
-  display: grid;
-  grid-template-columns: minmax(200px, 300px) 1fr;
-  column-gap: 80px;
-  row-gap: 48px;
-  margin-top: 32px;
-}
-
-.details {
-  grid-column: 1;
-  grid-row: 1;
-  align-self: center;
   margin: 0;
-}
-
-.detailRow {
-  display: flex;
-  gap: 16px;
-  padding: 4px 0;
-}
-
-.detailLabel {
-  width: 88px;
-  flex-shrink: 0;
-  text-align: right;
-  font-size: 13px;
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: #1c1a17;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.detailValue {
-  margin: 0;
-  text-align: left;
-  font-size: 13px;
-  color: #1c1a17;
+.titleVisible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Separate grid items (not one flex stack) so .details can align-self:
-   center specifically against .plate1's own row height, matching the
-   reference -- not against the combined height of both plates. */
-.plate1 {
-  grid-column: 2;
-  grid-row: 1;
+@media (prefers-reduced-motion: reduce) {
+  .title {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
 }
 
-.plate2 {
-  grid-column: 2;
-  grid-row: 2;
+.description {
+  margin: 36px auto 0;
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(28, 26, 23, 0.8);
 }
 
-.bottomRow {
-  grid-column: 1 / -1;
-  grid-row: 3;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
-
-.plateImg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-@media (max-width: 800px) {
-  .contentGrid {
-    grid-template-columns: 1fr;
+@media (max-width: 900px) {
+  .intro {
+    padding: 64px 0 80px;
   }
 
-  .details {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: start;
+  .title {
+    font-size: 40px;
   }
 
-  .plate1 {
-    grid-column: 1;
-    grid-row: 2;
+  .description {
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .body {
+    padding: 0 16px 64px;
   }
 
-  .plate2 {
-    grid-column: 1;
-    grid-row: 3;
+  .intro {
+    padding: 48px 0 56px;
   }
 
-  .bottomRow {
-    grid-column: 1;
-    grid-row: 4;
-    grid-template-columns: 1fr;
+  .title {
+    font-size: 32px;
+  }
+
+  .description {
+    max-width: 100%;
+    font-size: 15px;
+    margin-top: 20px;
   }
 }

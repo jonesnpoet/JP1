@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useIntroReady } from "@/components/site-intro/intro-ready-context";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import ProjectImage from "@/components/project-image/ProjectImage";
-import { COMING_SOON_HERO_ASPECT } from "@/components/case-study/ComingSoonCaseStudy";
 import { PROJECTS, type Project } from "./projects";
 import styles from "./ProjectGrid.module.css";
 
@@ -69,11 +68,7 @@ function ProjectCard({
     if (!imageWrapRef.current) return;
     beginForward({
       slug: project.slug,
-      // The "coming soon" page's hero is the inspo GIF, not a photo --
-      // hand off to whatever the destination page will actually show,
-      // at that page's own (differently-cropped) aspect ratio.
-      heroSrc: project.comingSoon ? project.comingSoon.media : project.hero,
-      heroAspect: project.comingSoon ? COMING_SOON_HERO_ASPECT : undefined,
+      heroSrc: project.hero,
       thumbSrc: project.image,
       originEl: imageWrapRef.current,
     });
