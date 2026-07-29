@@ -18,12 +18,15 @@
 
 .titleWrap {
   text-align: center;
-  padding-bottom: 72px;
+  padding-bottom: 88px;
 }
 
 .titleImg {
   display: inline-block;
-  width: min(620px, 100%);
+  /* Width bumped ~18% over the original 620px to preserve the same
+     rendered cap-height now that the wordmark's own viewBox is wider
+     (added letter-spacing widened the source SVG from 386x41 to 455x41). */
+  width: min(730px, 100%);
   height: auto;
   opacity: 0;
   transform: translateY(18px);
@@ -82,11 +85,11 @@
   }
 
   .titleWrap {
-    padding-bottom: 56px;
+    padding-bottom: 64px;
   }
 
   .titleImg {
-    width: min(440px, 100%);
+    width: min(520px, 100%);
   }
 }
 
@@ -96,10 +99,10 @@
   }
 
   .titleWrap {
-    padding-bottom: 40px;
+    padding-bottom: 48px;
   }
 
   .titleImg {
-    width: min(320px, 100%);
+    width: min(380px, 100%);
   }
 }
