@@ -5,7 +5,7 @@ import styles from "./IntroAnimation.module.css";
 export interface IntroAnimationProps {
   /** Stage 1: wordmark/subtext/hint fade out quickly, clicks stop registering. */
   textExiting: boolean;
-  /** Stage 2 only: the black backdrop fades away, revealing the white site. */
+  /** Stage 2 only: the maroon backdrop fades away, revealing the cream site. */
   backgroundInverting: boolean;
   reducedMotion: boolean;
   /** After the reduced-motion settle delay, fades content in without the keyframe motion. */

@@ -63,21 +63,24 @@
 .markP {
   position: absolute;
   opacity: 1;
-  /* Native art is white (designed for the black intro backdrop); forced to
-     black once docked against the white nav. Transitions alongside the
-     position/scale so the color change reads as part of the same motion. */
-  filter: brightness(1);
 }
 
-/* Stage 2 only: color inverts once the monogram has already settled into place. */
-.wrapper.animateColor .markJ,
-.wrapper.animateColor .markP {
-  transition: filter 1.4s ease-in-out;
+/* Maroon variant: transparent by default, crossfaded in on top of its cream
+   counterpart (same position, via the shared .markJ/.markP class) once
+   docked/inverted. Painting over rather than also fading the cream layer
+   out keeps this independent of the cream image's own entrance animation,
+   which also animates opacity. */
+.markMaroon {
+  opacity: 0;
 }
 
-.wrapper.inverted .markJ,
-.wrapper.inverted .markP {
-  filter: brightness(0);
+/* Stage 2 only: color crossfade once the monogram has already settled into place. */
+.wrapper.animateColor .markMaroon {
+  transition: opacity 1.4s ease-in-out;
+}
+
+.wrapper.inverted .markMaroon {
+  opacity: 1;
 }
 
 .markJ {

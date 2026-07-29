@@ -10,7 +10,7 @@ export default function NavWordmark() {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/assets/jones-poet-perfect.svg"
+      src="/assets/jones-poet-perfect-maroon.svg"
       alt=""
       aria-hidden="true"
       className={[styles.wordmark, ready && styles.ready].filter(Boolean).join(" ")}

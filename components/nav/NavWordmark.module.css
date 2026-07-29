@@ -20,8 +20,6 @@
   height: auto;
   display: block;
   z-index: 100;
-  /* Native art is white; forced black to read against the white nav. */
-  filter: brightness(0);
   opacity: 0;
   transition: opacity 0.3s ease;
 }

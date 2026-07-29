@@ -7,7 +7,7 @@ export interface MonogramLogoProps {
   docked: boolean;
   /** Stage 1 only: transitions the transform (shrink + move). */
   animateTransform: boolean;
-  /** White (intro) vs forced black (post color-inversion). Stage 2 target. */
+  /** Cream (intro) vs maroon (post color-inversion). Stage 2 target. */
   inverted: boolean;
   /** Stage 2 only: transitions the color (filter) change. */
   animateColor: boolean;
@@ -49,8 +49,24 @@ export default function MonogramLogo({
       <span className={styles.srOnly}>Jones + Poet</span>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/assets/j-jones.svg" alt="" aria-hidden="true" className={markClassName(styles.markJ)} />
+      {/* Maroon variant, crossfaded in on top once docked/inverted -- see
+          .markMaroon in MonogramLogo.module.css. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/assets/j-jones-maroon.svg"
+        alt=""
+        aria-hidden="true"
+        className={`${styles.markJ} ${styles.markMaroon}`}
+      />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/assets/poet-p.svg" alt="" aria-hidden="true" className={markClassName(styles.markP)} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/assets/poet-p-maroon.svg"
+        alt=""
+        aria-hidden="true"
+        className={`${styles.markP} ${styles.markMaroon}`}
+      />
     </div>
   );
 }
