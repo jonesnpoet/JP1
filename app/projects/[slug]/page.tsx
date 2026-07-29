@@ -26,7 +26,7 @@ export default async function CaseStudyPage({
   if (!project) notFound();
 
   return (
-    <main className="min-h-screen bg-[#faf7eb] pt-20">
+    <main className="min-h-screen bg-[#ece6d1] pt-20">
       <CaseStudyView project={project} />
     </main>
   );
