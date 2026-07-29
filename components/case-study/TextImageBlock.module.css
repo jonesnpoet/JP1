@@ -1,0 +1,60 @@
+.block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 64px;
+  margin-top: 120px;
+}
+
+.text {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(28, 26, 23, 0.85);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Image-left/text-right, via visual order only -- DOM order (text first)
+   stays the same. */
+.block.reverse .text {
+  order: 2;
+}
+
+.block.reverse .image {
+  order: 1;
+}
+
+@media (max-width: 900px) {
+  .block {
+    gap: 40px;
+    margin-top: 80px;
+  }
+
+  .text {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 640px) {
+  .block {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .block.reverse .text,
+  .block.reverse .image {
+    order: initial;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+}

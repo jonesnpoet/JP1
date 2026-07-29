@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import type { Project } from "@/components/project-grid/projects";
+import TextImageBlock from "./TextImageBlock";
+import ImageRow from "./ImageRow";
+import TextCallout from "./TextCallout";
 import styles from "./CaseStudyView.module.css";
 
 export default function CaseStudyView({ project }: { project: Project }) {
@@ -65,6 +68,17 @@ export default function CaseStudyView({ project }: { project: Project }) {
           </h1>
           <p className={styles.description}>{project.description}</p>
         </div>
+
+        {project.sections?.map((section, i) => {
+          switch (section.type) {
+            case "text-image":
+              return <TextImageBlock key={i} text={section.text} image={section.image} />;
+            case "image-row":
+              return <ImageRow key={i} images={section.images} />;
+            case "callout":
+              return <TextCallout key={i} text={section.text} />;
+          }
+        })}
       </div>
     </>
   );
