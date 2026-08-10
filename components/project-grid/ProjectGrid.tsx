@@ -2,11 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import localFont from "next/font/local";
 import { useIntroReady } from "@/components/site-intro/intro-ready-context";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import ProjectImage from "@/components/project-image/ProjectImage";
 import { PROJECTS, type Project } from "./projects";
 import styles from "./ProjectGrid.module.css";
+
+const canela = localFont({
+  src: "../../public/fonts/canela/CanelaText-Medium-Trial.otf",
+  weight: "500",
+  style: "normal",
+  display: "swap",
+});
 
 const STAGGER_MS = 80;
 // Matches .imageWrap's transition-duration in ProjectGrid.module.css.
@@ -91,7 +99,12 @@ function ProjectCard({
         <ProjectImage title={project.title} image={project.image} sketch={project.sketch} />
       </div>
       <p
-        className={[styles.caption, titlesReady && styles.ready, isActive && styles.fadingAway]
+        className={[
+          canela.className,
+          styles.caption,
+          titlesReady && styles.ready,
+          isActive && styles.fadingAway,
+        ]
           .filter(Boolean)
           .join(" ")}
         style={{ transitionDelay: titlesReady ? `${index * STAGGER_MS}ms` : "0ms" }}

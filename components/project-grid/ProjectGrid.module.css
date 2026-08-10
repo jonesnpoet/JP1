@@ -40,7 +40,7 @@
 
 .caption {
   margin-top: 8px;
-  font-size: 13px;
+  font-size: 16.9px; /* 13px + 30% */
   letter-spacing: 0.02em;
   color: #1c1a17;
   text-align: left;
