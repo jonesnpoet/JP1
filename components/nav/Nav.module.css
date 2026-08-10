@@ -41,13 +41,107 @@
   opacity: 0.6;
 }
 
-.linkActive {
-  color: #7e3343;
-}
-
 @media (max-width: 640px) {
   .link {
     /* Capped lower -- already crowds the fixed logo/wordmark below this width. */
     font-size: 14.9px; /* 13px + ~15% */
+  }
+}
+
+.mobileNav {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .links {
+    display: none;
+  }
+
+  .mobileNav {
+    display: block;
+  }
+}
+
+.menuToggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  padding: 12px;
+  margin: -12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #1c1a17;
+  transform-origin: center;
+  transition:
+    transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.menuToggleOpen .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menuToggleOpen .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menuToggleOpen .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 80px;
+  right: 36px;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 28px;
+  padding: 32px 8px;
+  pointer-events: none;
+}
+
+.mobileMenuOpen {
+  pointer-events: auto;
+}
+
+.mobileLink {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1c1a17;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition:
+    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobileMenuOpen .mobileLink {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Declared after .link/.mobileLink so it wins the color property regardless of which variant it's paired with. */
+.linkActive {
+  color: #7e3343;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .mobileLink {
+    transition-duration: 0.15s;
   }
 }
