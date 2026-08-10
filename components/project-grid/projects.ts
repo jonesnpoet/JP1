@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
     slug: "harbor-loft",
     title: "Harbor Loft",
     image: "/projects/mid.png",
-    sketch: "/projects/mid-hover1.png",
+    sketch: "/projects/HL-HOVER.png",
     hero: "/projects/mid-full.png",
     heroAlt: "A vanity in Harbor Loft with brass fixtures, wood cabinetry, and patterned wallpaper.",
     description:
@@ -73,7 +73,7 @@ export const PROJECTS: Project[] = [
     slug: "birch-residence",
     title: "Birch Residence",
     image: "/projects/right.png",
-    sketch: "/projects/right-hover.png",
+    sketch: "/projects/HB-HOVER.png",
     hero: "/projects/right-full.png",
     heroAlt: "Walk-in shower in Birch Residence with pale blue vertical tile, brass fixtures, and a marble bench.",
     description:
