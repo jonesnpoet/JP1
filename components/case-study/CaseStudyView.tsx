@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { canela } from "@/components/fonts";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import { getPageImages, type Project } from "@/components/project-grid/projects";
 import Lightbox from "@/components/lightbox/Lightbox";
@@ -72,7 +73,11 @@ export default function CaseStudyView({ project }: { project: Project }) {
         </Link>
 
         <div ref={introRef} className={styles.intro}>
-          <h1 className={[styles.title, titleVisible && styles.titleVisible].filter(Boolean).join(" ")}>
+          <h1
+            className={[canela.className, styles.title, titleVisible && styles.titleVisible]
+              .filter(Boolean)
+              .join(" ")}
+          >
             {project.title}
           </h1>
           <p className={styles.description}>{project.description}</p>

@@ -2,19 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import localFont from "next/font/local";
+import { canela } from "@/components/fonts";
 import { useIntroReady } from "@/components/site-intro/intro-ready-context";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import ProjectImage from "@/components/project-image/ProjectImage";
 import { PROJECTS, type Project } from "./projects";
 import styles from "./ProjectGrid.module.css";
-
-const canela = localFont({
-  src: "../../public/fonts/canela/CanelaText-Regular-Trial.otf",
-  weight: "400",
-  style: "normal",
-  display: "swap",
-});
 
 const STAGGER_MS = 80;
 // Matches .imageWrap's transition-duration in ProjectGrid.module.css.
