@@ -1,9 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { canelaBold } from "@/components/fonts";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import styles from "./Nav.module.css";
 import NavWordmark from "./NavWordmark";
+
+const TABS = [
+  { href: "/", label: "Projects", isActive: (path: string) => path === "/" || path.startsWith("/projects/") },
+  { href: "/about", label: "About", isActive: (path: string) => path.startsWith("/about") },
+  { href: "/contact", label: "Contact", isActive: (path: string) => path.startsWith("/contact") },
+];
 
 // The monogram mark itself is <MonogramLogo />, a separate fixed-position
 // element whose "docked" transform lands it exactly over this bar's
@@ -14,20 +22,23 @@ import NavWordmark from "./NavWordmark";
 // with the nav links during project transitions.
 export default function Nav() {
   const { transitioning } = useProjectTransition();
+  const pathname = usePathname();
 
   return (
     <header className={[styles.nav, transitioning && styles.fading].filter(Boolean).join(" ")}>
       <NavWordmark />
       <nav className={styles.links} aria-label="Primary">
-        <Link href="/" className={styles.link}>
-          Projects
-        </Link>
-        <Link href="/about" className={styles.link}>
-          About
-        </Link>
-        <Link href="/contact" className={styles.link}>
-          Contact
-        </Link>
+        {TABS.map(({ href, label, isActive }) => (
+          <Link
+            key={href}
+            href={href}
+            className={[canelaBold.className, styles.link, isActive(pathname) && styles.linkActive]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            {label}
+          </Link>
+        ))}
       </nav>
     </header>
   );

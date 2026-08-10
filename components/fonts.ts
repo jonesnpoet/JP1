@@ -7,3 +7,11 @@ export const canela = localFont({
   style: "normal",
   display: "swap",
 });
+
+// Trial webfont (evaluation license, no @font-face coverage) -- swap for a licensed file before production.
+export const canelaBold = localFont({
+  src: "../public/fonts/canela/CanelaText-Bold-Trial.otf",
+  weight: "700",
+  style: "normal",
+  display: "swap",
+});

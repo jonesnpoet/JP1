@@ -1,3 +1,4 @@
+import { canela } from "@/components/fonts";
 import ContactForm from "./ContactForm";
 import styles from "./ContactView.module.css";
 
@@ -6,8 +7,8 @@ export default function ContactView() {
     <div className={styles.page}>
       <div className={styles.container}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/footer-mark.png" alt="Jones + Poet" className={styles.logo} />
-        <h1 className={styles.title}>Contact</h1>
+        <img src="/jp-about-title.svg" alt="Jones + Poet" className={styles.logo} />
+        <h1 className={[canela.className, styles.title].join(" ")}>Contact</h1>
         <p className={styles.intro}>
           We&apos;d love to hear about your project. Reach out and let&apos;s start the conversation.
         </p>
