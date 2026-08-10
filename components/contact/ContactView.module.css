@@ -9,6 +9,13 @@
   text-align: center;
 }
 
+.logo {
+  display: block;
+  width: min(220px, 55vw);
+  height: auto;
+  margin: 0 auto 40px;
+}
+
 .title {
   font-size: 56px;
   font-weight: 500;

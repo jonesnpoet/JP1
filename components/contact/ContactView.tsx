@@ -1,13 +1,17 @@
+import ContactForm from "./ContactForm";
 import styles from "./ContactView.module.css";
 
 export default function ContactView() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/footer-mark.png" alt="Jones + Poet" className={styles.logo} />
         <h1 className={styles.title}>Contact</h1>
         <p className={styles.intro}>
           We&apos;d love to hear about your project. Reach out and let&apos;s start the conversation.
         </p>
+        <ContactForm />
         <div className={styles.links}>
           <a href="mailto:design@jonesandpoet.com" className={styles.link}>
             design@jonesandpoet.com
