@@ -31,9 +31,12 @@
 }
 
 /* Docked into the nav bar, top-left (left offset gives it breathing room
-   from the viewport edge; kept in sync with NavWordmark's centering math). */
+   from the viewport edge; kept in sync with NavWordmark's centering math).
+   Only clickable once docked -- pointer-events stay off during the intro so
+   this doesn't compete with IntroAnimation's own click-to-dismiss overlay. */
 .wrapper.docked {
   transform: translate(36px, 16px) scale(0.2);
+  pointer-events: auto;
 }
 
 /* Stage 1 only: shrink + move, no color change yet. */

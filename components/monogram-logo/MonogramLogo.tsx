@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./MonogramLogo.module.css";
 
 export type MarkState = "entrance" | "reduced" | "reducedSettled" | "static";
@@ -45,7 +46,7 @@ export default function MonogramLogo({
     [base, markStateClassName].filter(Boolean).join(" ");
 
   return (
-    <div className={wrapperClassName}>
+    <Link href="/" className={wrapperClassName}>
       <span className={styles.srOnly}>Jones + Poet</span>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/assets/j-jones.svg" alt="" aria-hidden="true" className={markClassName(styles.markJ)} />
@@ -67,6 +68,6 @@ export default function MonogramLogo({
         aria-hidden="true"
         className={`${styles.markP} ${styles.markMaroon}`}
       />
-    </div>
+    </Link>
   );
 }
