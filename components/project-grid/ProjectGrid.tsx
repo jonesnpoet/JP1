@@ -10,8 +10,8 @@ import { PROJECTS, type Project } from "./projects";
 import styles from "./ProjectGrid.module.css";
 
 const canela = localFont({
-  src: "../../public/fonts/canela/CanelaText-Medium-Trial.otf",
-  weight: "500",
+  src: "../../public/fonts/canela/CanelaText-Regular-Trial.otf",
+  weight: "400",
   style: "normal",
   display: "swap",
 });
