@@ -117,13 +117,13 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "birch-residence",
-    title: "Birch Residence",
+    title: "Fremont Bathroom",
     image: "/projects/right.png",
     sketch: "/projects/HB-HOVER.png",
     hero: "/projects/right-full.png",
     heroAlt: "Walk-in shower in Birch Residence with pale blue vertical tile, brass fixtures, and a marble bench.",
     description:
-      "Birch Residence is a bathroom renovation completed in 2025 within a compact 300-square-foot footprint. The goal was to make the most of a small space — soft blue tile, aged brass fixtures, and a restrained material palette combining to create a room that feels calm, elevated, and complete.",
+      "The Fremont Bathroom was designed with the guest experience at the forefront while maintaining a seamless connection to the rest of the home. A palette of blues and creams is layered with Peruvian walnut, while warm, even lighting keeps the space feeling inviting. Vertically stacked tile adds a subtle sense of height, paired with muted Art Deco swan wallpaper and custom wainscoting.",
     sections: [
       {
         type: "text-image",
@@ -161,7 +161,7 @@ export const PROJECTS: Project[] = [
       },
       {
         type: "callout",
-        text: "A small room, treated like it mattered.",
+        text: "A strip of fluted wood finishes the wainscoting, adding a quiet layer of detail to the space.",
       },
       {
         type: "image-row",
