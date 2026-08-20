@@ -51,13 +51,54 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     slug: "maple-house",
-    title: "Maple House",
+    title: "The Claude Lake Home",
     image: "/projects/left.png",
-    sketch: "/projects/maple-house/left-hover.png",
-    hero: "/projects/left-full.png",
-    heroAlt: "A bedroom corner in Maple House with a striped armchair, a carved wood dresser, and fresh tulips.",
+    sketch: "/projects/cl/left-hover.png",
+    hero: "/projects/cl/cl-hero.jpg",
+    heroAlt: "A warm, deep-red bedroom corner in The Claude Lake Home with a brass table lamp, a striped armchair, and a wall of small sculptural discs.",
     description:
-      "Maple House is a full residential renovation completed in 2025, reworking roughly 3,200 square feet into a home that feels warm, layered, and considered. The goal was to bring balance to every room — pairing classic forms with rich materials so the finished spaces feel collected over time rather than assembled all at once.",
+      "The Claude Lake Home brings together color and pattern to create a sense of home that feels curated and deeply personal. The design was approached with intention; weaving meaningful family elements throughout the space. Artwork was commissioned to capture the homeowners' favorite activities.",
+    sections: [
+      {
+        type: "image-row",
+        images: [
+          {
+            src: "/projects/cl/1.jpg",
+            alt: "A wall of small sculptural ceramic discs above a wood dresser with a brass lamp and fresh flowers in The Claude Lake Home.",
+          },
+          {
+            src: "/projects/cl/2.jpg",
+            alt: "Detail of a floral roman shade in The Claude Lake Home.",
+          },
+        ],
+      },
+      {
+        type: "image-row",
+        images: [
+          {
+            src: "/projects/cl/3.jpg",
+            alt: "Built-in wood shelving styled with books, family photos, and keepsakes in The Claude Lake Home.",
+          },
+          {
+            src: "/projects/cl/4.jpg",
+            alt: "View through a doorway into a bedroom with a floral roman shade and brass bedside lamp in The Claude Lake Home.",
+          },
+        ],
+      },
+      {
+        type: "image-row",
+        images: [
+          {
+            src: "/projects/cl/5.jpg",
+            alt: "Commissioned artwork depicting the homeowners' favorite activities, framed in gold above striped armchairs in The Claude Lake Home.",
+          },
+          {
+            src: "/projects/cl/6.jpg",
+            alt: "Floating shelves styled with sculpture, books, and family photos in The Claude Lake Home.",
+          },
+        ],
+      },
+    ],
   },
   {
     slug: "harbor-loft",
