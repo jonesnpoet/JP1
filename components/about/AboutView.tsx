@@ -4,15 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./AboutView.module.css";
 
 const BODY_PARAGRAPHS = [
-  "Jones + Poet was founded by Aubrie Jones and Ruby Poet, two designers who approach a room from opposite directions and meet in the same place.",
-  "Aubrie brings the vision forward. She's the one in the room first, laying out how a space could work before it's built, unafraid of the harder conversations a serious renovation requires. Bold, technical, and endlessly curious about pattern and texture, she pushes every project toward something braver than what was originally imagined.",
-  "Ruby brings it home. She notices what others miss — the way light falls in a corner, the detail that makes a room feel considered rather than decorated. Her belief is simple: it's the mix, not the match. Textures, finishes, and eras layered together until a space feels less designed than discovered.",
-  "Together, they take a transitional approach — traditional bones, modern instinct, pieces pulled from different decades and made to feel like they always belonged together. The result is warm without being predictable, elegant without being precious.",
+  "Jones + Poet was founded by Aubrie Jones and Ruby Poet, two designers with different perspectives and one shared vision. To create interiors that feel thoughtful, personal, and built with quality craftsmanship.",
+  "Aubrie brings the technical side of every project to life. She approaches design with confidence, balancing strategy with creativity. From space planning to construction details, she leads with bold ideas and a clear vision while guiding clients through every stage of the process.",
+  "Ruby brings an intuitive approach to design. She sees potential where others don't and has a talent for combining materials, color, and texture in unexpected ways. She believes the best interiors come from trusting instinct rather than following convention.",
 ];
 
 const CLOSING_PARAGRAPHS = [
-  "We believe good design is felt as much as it's seen. That a home should hold up in craftsmanship and in feeling for a lifetime, not a season. And that the best spaces come from clients willing to take a real creative risk alongside us.",
-  "Jones + Poet is for exactly that kind of client: someone who doesn't just want an interior designer, but wants to be part of the design.",
+  "Every project begins by understanding how a client lives, works, and experiences their space. Each design is shaped around those routines, resulting in interiors that are both functional and beautiful.",
+  "Jones + Poet believes the best projects come from a collaborative process. By working closely with each client, they create spaces that are intentional and uniquely their own.",
 ];
 
 export default function AboutView() {
