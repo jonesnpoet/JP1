@@ -14,7 +14,8 @@ export interface CaseStudyImage {
 export type CaseStudySection =
   | { type: "text-image"; text: string; image: CaseStudyImage }
   | { type: "image-row"; images: [CaseStudyImage, CaseStudyImage] }
-  | { type: "callout"; text: string };
+  | { type: "callout"; text: string }
+  | { type: "text"; text: string };
 
 /**
  * Flat, ordered list of every clickable image on a case study page (hero
@@ -84,6 +85,10 @@ export const PROJECTS: Project[] = [
             alt: "View through a doorway into a bedroom with a floral roman shade and brass bedside lamp in The Claude Lake Home.",
           },
         ],
+      },
+      {
+        type: "text",
+        text: "This adds a layer of storytelling and makes the home feel distinctly theirs. The result is a space that feels collected over time. Every detail reflects the people who live there.",
       },
       {
         type: "image-row",

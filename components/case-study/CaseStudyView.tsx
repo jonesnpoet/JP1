@@ -9,6 +9,7 @@ import Lightbox from "@/components/lightbox/Lightbox";
 import TextImageBlock from "./TextImageBlock";
 import ImageRow from "./ImageRow";
 import TextCallout from "./TextCallout";
+import TextBlock from "./TextBlock";
 import styles from "./CaseStudyView.module.css";
 
 export default function CaseStudyView({ project }: { project: Project }) {
@@ -116,6 +117,8 @@ export default function CaseStudyView({ project }: { project: Project }) {
               }
               case "callout":
                 return <TextCallout key={i} text={section.text} />;
+              case "text":
+                return <TextBlock key={i} text={section.text} />;
             }
           });
         })()}
