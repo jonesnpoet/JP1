@@ -1,8 +1,13 @@
 .hero {
   width: 100%;
-  /* Matches the real *-full.png dimensions (1537x1023) and the transition
-     overlay's "arrived" rect (see ProjectTransitionProvider's heroRect()),
-     so there's no visible jump when the overlay hands off to this page. */
+  /* Capped to match .body's max-width so the hero sits contained like the
+     rest of the page instead of running full-bleed edge to edge. Must stay
+     in sync with the transition overlay's "arrived" rect (see
+     ProjectTransitionProvider's heroRect()), so there's no visible jump
+     when the overlay hands off to this page. */
+  max-width: 1200px;
+  margin: 0 auto;
+  /* Matches the real *-full.png dimensions (1537x1023). */
   aspect-ratio: 1537 / 1023;
   overflow: hidden;
   background: #eee;

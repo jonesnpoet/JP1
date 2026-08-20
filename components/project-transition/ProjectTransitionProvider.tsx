@@ -20,6 +20,8 @@ const REVEAL_BUFFER_MS = 120;
 const NAV_HEIGHT = 80;
 // Real dimensions of the *-full.png hero images.
 const HERO_ASPECT = 1537 / 1023;
+// Must match .hero's max-width in CaseStudyView.module.css.
+const HERO_MAX_WIDTH = 1200;
 
 type Phase =
   | { kind: "idle" }
@@ -39,8 +41,9 @@ function rectOf(el: HTMLElement): Rect {
 }
 
 function heroRect(aspect: number): Rect {
-  const width = window.innerWidth;
-  return { top: NAV_HEIGHT, left: 0, width, height: width / aspect };
+  const width = Math.min(window.innerWidth, HERO_MAX_WIDTH);
+  const left = (window.innerWidth - width) / 2;
+  return { top: NAV_HEIGHT, left, width, height: width / aspect };
 }
 
 function nextFrame(fn: () => void) {
