@@ -10,7 +10,10 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 460px;
+  /* Text column matches .body's own max-width exactly, so the photo
+     column starts right where the copy actually ends instead of an
+     arbitrary fixed width that didn't line up with it. */
+  grid-template-columns: minmax(0, 540px) 1fr;
   gap: 96px;
   align-items: start;
   padding-bottom: 96px;

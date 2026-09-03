@@ -55,7 +55,7 @@ export default function AboutView() {
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/about/jp-head.png"
+              src="/about/jp-about.png"
               alt="Aubrie Jones and Ruby Poet, founders of Jones + Poet"
               className={styles.photo}
             />
