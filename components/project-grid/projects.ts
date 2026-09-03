@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
     slug: "maple-house",
     title: "The Claude Lake Home",
     image: "/projects/left.png",
-    sketch: "/projects/cl/left-hover.png",
+    sketch: "/projects/left-hover.png",
     hero: "/projects/cl/cl-hero.jpg",
     heroAlt: "A warm, deep-red bedroom corner in The Claude Lake Home with a brass table lamp, a striped armchair, and a wall of small sculptural discs.",
     description:
@@ -109,7 +109,7 @@ export const PROJECTS: Project[] = [
     slug: "harbor-loft",
     title: "Harbor Loft",
     image: "/projects/mid.png",
-    sketch: "/projects/HL-HOVER.png",
+    sketch: "/projects/mid-hover.png",
     hero: "/projects/mid-full.png",
     heroAlt: "A vanity in Harbor Loft with brass fixtures, wood cabinetry, and patterned wallpaper.",
     description:
@@ -119,7 +119,7 @@ export const PROJECTS: Project[] = [
     slug: "birch-residence",
     title: "Fremont Bathroom",
     image: "/projects/right.png",
-    sketch: "/projects/HB-HOVER.png",
+    sketch: "/projects/right-hover.png",
     hero: "/projects/right-full.png",
     heroAlt: "Walk-in shower in Birch Residence with pale blue vertical tile, brass fixtures, and a marble bench.",
     description:
