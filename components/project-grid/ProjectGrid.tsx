@@ -6,12 +6,13 @@ import { canela } from "@/components/fonts";
 import { useIntroReady } from "@/components/site-intro/intro-ready-context";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import ProjectImage from "@/components/project-image/ProjectImage";
-import { PROJECTS, type Project } from "./projects";
+import { COMING_SOON_PROJECTS, PROJECTS, type ComingSoonProject, type Project } from "./projects";
 import styles from "./ProjectGrid.module.css";
 
 const STAGGER_MS = 80;
 // Matches .imageWrap's transition-duration in ProjectGrid.module.css.
 const IMAGE_FADE_MS = 600;
+const TOTAL_CARDS = PROJECTS.length + COMING_SOON_PROJECTS.length;
 
 export default function ProjectGrid() {
   const imagesReady = useIntroReady();
@@ -21,7 +22,7 @@ export default function ProjectGrid() {
     if (!imagesReady) return;
     // Titles don't start until every staggered image has finished fading in
     // (stage 3 completes before stage 4 begins).
-    const lastImageDelay = (PROJECTS.length - 1) * STAGGER_MS;
+    const lastImageDelay = (TOTAL_CARDS - 1) * STAGGER_MS;
     const timer = setTimeout(() => setTitlesReady(true), lastImageDelay + IMAGE_FADE_MS);
     return () => clearTimeout(timer);
   }, [imagesReady]);
@@ -33,6 +34,15 @@ export default function ProjectGrid() {
           key={project.slug}
           project={project}
           index={i}
+          imagesReady={imagesReady}
+          titlesReady={titlesReady}
+        />
+      ))}
+      {COMING_SOON_PROJECTS.map((project, i) => (
+        <ComingSoonCard
+          key={project.slug}
+          project={project}
+          index={PROJECTS.length + i}
           imagesReady={imagesReady}
           titlesReady={titlesReady}
         />
@@ -105,5 +115,40 @@ function ProjectCard({
         {project.title}
       </p>
     </Link>
+  );
+}
+
+// No case study page exists yet, so this renders as a static (non-clickable)
+// card -- same thumbnail/hover image treatment as ProjectCard, but no Link,
+// no click transition, and the caption always reads "Coming soon" on the
+// site even though the real project name lives in code (alt text, slug).
+function ComingSoonCard({
+  project,
+  index,
+  imagesReady,
+  titlesReady,
+}: {
+  project: ComingSoonProject;
+  index: number;
+  imagesReady: boolean;
+  titlesReady: boolean;
+}) {
+  return (
+    <div className={styles.staticCard}>
+      <div
+        className={[styles.imageWrap, imagesReady && styles.ready].filter(Boolean).join(" ")}
+        style={{ transitionDelay: imagesReady ? `${index * STAGGER_MS}ms` : "0ms" }}
+      >
+        <ProjectImage title={project.internalTitle} image={project.image} sketch={project.hover} />
+      </div>
+      <p
+        className={[canela.className, styles.caption, titlesReady && styles.ready]
+          .filter(Boolean)
+          .join(" ")}
+        style={{ transitionDelay: titlesReady ? `${index * STAGGER_MS}ms` : "0ms" }}
+      >
+        Coming soon
+      </p>
+    </div>
   );
 }
