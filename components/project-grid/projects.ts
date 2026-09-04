@@ -74,6 +74,12 @@ export const COMING_SOON_PROJECTS: ComingSoonProject[] = [
     image: "/projects/hr-tn.png",
     hover: "/projects/hr-hover.png",
   },
+  {
+    slug: "the-54",
+    internalTitle: "The 54",
+    image: "/projects/the-54-tn.png",
+    hover: "/projects/the-54-hover.png",
+  },
 ];
 
 export const PROJECTS: Project[] = [
