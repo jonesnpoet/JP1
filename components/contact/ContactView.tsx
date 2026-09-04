@@ -14,8 +14,8 @@ export default function ContactView() {
         </p>
         <ContactForm />
         <div className={styles.links}>
-          <a href="mailto:design@jonesandpoet.com" className={styles.link}>
-            design@jonesandpoet.com
+          <a href="mailto:Design@jonesandpoet.com" className={styles.link}>
+            Design@jonesandpoet.com
           </a>
           <a
             href="https://instagram.com/jonesandpoet"
