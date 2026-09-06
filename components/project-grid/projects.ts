@@ -184,6 +184,15 @@ export const PROJECTS: Project[] = [
         type: "image-row",
         images: [
           {
+            src: "/projects/birch-residence/image-1002.gif",
+            alt: "Animated title card reading \"The Fremont Bathroom\" in a serif wordmark, from Birch Residence.",
+          },
+        ],
+      },
+      {
+        type: "image-row",
+        images: [
+          {
             src: "/projects/birch-residence/image-998.png",
             alt: "A welcome card and vintage-style key styled on the vanity in Birch Residence.",
           },
