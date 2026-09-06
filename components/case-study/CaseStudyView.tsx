@@ -105,7 +105,7 @@ export default function CaseStudyView({ project }: { project: Project }) {
                 );
               }
               case "image-row": {
-                const imageIndices: [number, number] = [cursor++, cursor++];
+                const imageIndices = section.images.map(() => cursor++);
                 return (
                   <ImageRow
                     key={i}

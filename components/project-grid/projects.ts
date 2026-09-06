@@ -13,7 +13,9 @@ export interface CaseStudyImage {
  */
 export type CaseStudySection =
   | { type: "text-image"; text: string; image: CaseStudyImage }
-  | { type: "image-row"; images: [CaseStudyImage, CaseStudyImage] }
+  // Normally a pair; a single-element array renders as a solo row (used
+  // when an odd insertion leaves one image without a partner).
+  | { type: "image-row"; images: [CaseStudyImage] | [CaseStudyImage, CaseStudyImage] }
   | { type: "callout"; text: string }
   | { type: "text"; text: string };
 
@@ -113,6 +115,15 @@ export const PROJECTS: Project[] = [
             src: "/projects/cl/3.jpg",
             alt: "Built-in wood shelving styled with books, family photos, and keepsakes in The Claude Lake Home.",
           },
+          {
+            src: "/projects/cl/cl-2.gif",
+            alt: "Animated title card reading \"Claude Lake\" in a serif wordmark, from The Claude Lake Home.",
+          },
+        ],
+      },
+      {
+        type: "image-row",
+        images: [
           {
             src: "/projects/cl/4.jpg",
             alt: "View through a doorway into a bedroom with a floral roman shade and brass bedside lamp in The Claude Lake Home.",
