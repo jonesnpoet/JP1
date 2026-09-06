@@ -139,16 +139,6 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    slug: "harbor-loft",
-    title: "Harbor Loft",
-    image: "/projects/mid.png",
-    sketch: "/projects/mid-hover.png",
-    hero: "/projects/mid-full.png",
-    heroAlt: "A vanity in Harbor Loft with brass fixtures, wood cabinetry, and patterned wallpaper.",
-    description:
-      "Harbor Loft is a renovation completed in 2025 across approximately 1,800 square feet. The goal was to bring warmth and polish to every surface — brass fixtures, rich wood tones, and softly patterned finishes layered together so the space feels elevated yet lived-in.",
-  },
-  {
     slug: "birch-residence",
     title: "Fremont Bathroom",
     image: "/projects/right.png",
