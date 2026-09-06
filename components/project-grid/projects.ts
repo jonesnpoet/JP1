@@ -184,6 +184,10 @@ export const PROJECTS: Project[] = [
         type: "image-row",
         images: [
           {
+            src: "/projects/birch-residence/image-998.png",
+            alt: "A welcome card and vintage-style key styled on the vanity in Birch Residence.",
+          },
+          {
             src: "/projects/birch-residence/image-1002.gif",
             alt: "Animated title card reading \"The Fremont Bathroom\" in a serif wordmark, from Birch Residence.",
           },
@@ -193,12 +197,12 @@ export const PROJECTS: Project[] = [
         type: "image-row",
         images: [
           {
-            src: "/projects/birch-residence/image-998.png",
-            alt: "A welcome card and vintage-style key styled on the vanity in Birch Residence.",
-          },
-          {
             src: "/projects/birch-residence/image-999.png",
             alt: "Custom wood towel niche between two doors in the Birch Residence hallway.",
+          },
+          {
+            src: "/projects/birch-residence/image-1001.png",
+            alt: "View toward the vanity and linen closet in the Birch Residence bathroom.",
           },
         ],
       },
@@ -209,10 +213,6 @@ export const PROJECTS: Project[] = [
       {
         type: "image-row",
         images: [
-          {
-            src: "/projects/birch-residence/image-1001.png",
-            alt: "View toward the vanity and linen closet in the Birch Residence bathroom.",
-          },
           {
             src: "/projects/birch-residence/image-1000.png",
             alt: "Wood vanity with brass hardware and a mirror reflecting the shower in Birch Residence.",
