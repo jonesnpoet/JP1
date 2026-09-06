@@ -122,15 +122,6 @@ export const PROJECTS: Project[] = [
         ],
       },
       {
-        type: "image-row",
-        images: [
-          {
-            src: "/projects/cl/4.jpg",
-            alt: "View through a doorway into a bedroom with a floral roman shade and brass bedside lamp in The Claude Lake Home.",
-          },
-        ],
-      },
-      {
         type: "text",
         text: "This adds a layer of storytelling and makes the home feel distinctly theirs. The result is a space that feels collected over time. Every detail reflects the people who live there.",
       },
@@ -138,9 +129,18 @@ export const PROJECTS: Project[] = [
         type: "image-row",
         images: [
           {
+            src: "/projects/cl/4.jpg",
+            alt: "View through a doorway into a bedroom with a floral roman shade and brass bedside lamp in The Claude Lake Home.",
+          },
+          {
             src: "/projects/cl/5.jpg",
             alt: "Commissioned artwork depicting the homeowners' favorite activities, framed in gold above striped armchairs in The Claude Lake Home.",
           },
+        ],
+      },
+      {
+        type: "image-row",
+        images: [
           {
             src: "/projects/cl/6.jpg",
             alt: "Floating shelves styled with sculpture, books, and family photos in The Claude Lake Home.",
