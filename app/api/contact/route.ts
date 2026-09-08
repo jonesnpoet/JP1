@@ -25,12 +25,10 @@ function isValidPayload(body: unknown): body is ContactPayload {
 
 // Destination inbox for every submission; override via CONTACT_TO_EMAIL.
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "Design@jonesandpoet.com";
-// Resend's sending identity. Falls back to their shared onboarding domain,
-// which only delivers to the Resend account's own verified address -- set
-// CONTACT_FROM_EMAIL to an address on a domain verified in Resend (e.g.
-// "Jones + Poet Website <noreply@jonesandpoet.com>") for real delivery to
-// TO_EMAIL in production.
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? "Jones + Poet Website <onboarding@resend.dev>";
+// Resend's sending identity -- jonesandpoet.com is verified in Resend, so
+// this sends from that domain directly. Override via CONTACT_FROM_EMAIL if
+// needed.
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? "Jones + Poet Website <noreply@jonesandpoet.com>";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
