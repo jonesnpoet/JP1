@@ -1,4 +1,5 @@
-import type { CaseStudyImage } from "@/components/project-grid/projects";
+import Image from "next/image";
+import { isGifImage, urlForImage, type SanityImageWithAlt } from "@/sanity/lib/image";
 import styles from "./TextImageBlock.module.css";
 
 /**
@@ -14,25 +15,39 @@ export default function TextImageBlock({
   onImageClick,
 }: {
   text: string;
-  image: CaseStudyImage;
+  image: SanityImageWithAlt;
   /** Flips to image-left/text-right. Defaults to text-left/image-right. */
   reverse?: boolean;
   /** This image's position in the page's flat lightbox image list. */
   imageIndex?: number;
   onImageClick?: (index: number) => void;
 }) {
+  const gif = isGifImage(image);
+  const url = gif ? urlForImage(image)?.url() : urlForImage(image)?.width(800).fit("crop").url();
+  const handleClick = onImageClick && imageIndex !== undefined ? () => onImageClick(imageIndex) : undefined;
+
   return (
     <div className={[styles.block, reverse && styles.reverse].filter(Boolean).join(" ")}>
       <p className={styles.text}>{text}</p>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={image.src}
-        alt={image.alt}
-        className={styles.image}
-        style={image.focal ? { objectPosition: image.focal } : undefined}
-        loading="lazy"
-        onClick={onImageClick && imageIndex !== undefined ? () => onImageClick(imageIndex) : undefined}
-      />
+      {url && (
+        <div className={styles.image} onClick={handleClick}>
+          {gif ? (
+            // eslint-disable-next-line @next/next/no-img-element -- animated
+            // GIF: bypasses Next's optimizer, which flattens/times out on these.
+            <img src={url} alt={image.alt ?? ""} className={styles.imageInner} style={FILL_STYLE} loading="lazy" />
+          ) : (
+            <Image
+              src={url}
+              alt={image.alt ?? ""}
+              fill
+              className={styles.imageInner}
+              sizes="(max-width: 640px) 100vw, 50vw"
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }
+
+const FILL_STYLE = { position: "absolute" as const, inset: 0, width: "100%", height: "100%" };

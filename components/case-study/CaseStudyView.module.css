@@ -1,4 +1,5 @@
 .hero {
+  position: relative;
   width: 100%;
   /* Capped to match .body's max-width so the hero sits contained like the
      rest of the page instead of running full-bleed edge to edge. Must stay

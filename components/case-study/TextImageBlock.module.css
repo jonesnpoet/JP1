@@ -14,12 +14,16 @@
 }
 
 .image {
-  display: block;
+  position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.imageInner {
   object-fit: cover;
   object-position: center;
-  cursor: pointer;
 }
 
 /* Image-left/text-right, via visual order only -- DOM order (text first)

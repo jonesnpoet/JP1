@@ -2,23 +2,34 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { canela } from "@/components/fonts";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
-import { getPageImages, type Project } from "@/components/project-grid/projects";
+import { isGifImage, urlForImage } from "@/sanity/lib/image";
+import type { SanityProjectDetail } from "@/sanity/lib/types";
 import Lightbox from "@/components/lightbox/Lightbox";
-import TextImageBlock from "./TextImageBlock";
-import ImageRow from "./ImageRow";
-import TextCallout from "./TextCallout";
-import TextBlock from "./TextBlock";
+import PortableTextBody, { flattenBodyImages } from "./PortableTextBody";
 import styles from "./CaseStudyView.module.css";
 
-export default function CaseStudyView({ project }: { project: Project }) {
+const HERO_FILL_STYLE = { position: "absolute" as const, inset: 0, width: "100%", height: "100%" };
+
+export default function CaseStudyView({ project }: { project: SanityProjectDetail }) {
   const heroRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const [titleVisible, setTitleVisible] = useState(false);
   const { transitioning, beginBackward } = useProjectTransition();
 
-  const pageImages = useMemo(() => getPageImages(project), [project]);
+  const heroIsGif = isGifImage(project.heroImage);
+  const heroUrl = heroIsGif
+    ? (urlForImage(project.heroImage)?.url() ?? "")
+    : (urlForImage(project.heroImage)?.width(1537).fit("crop").url() ?? "");
+  const thumbUrl = urlForImage(project.thumbnail)?.width(600).fit("crop").url() ?? "";
+  const heroAlt = project.heroImage?.alt || project.title;
+
+  const pageImages = useMemo(
+    () => [{ src: heroUrl, alt: heroAlt }, ...flattenBodyImages(project.body)],
+    [project, heroUrl, heroAlt],
+  );
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const closeLightbox = () => setLightboxIndex(null);
   const prevImage = () =>
@@ -48,8 +59,8 @@ export default function CaseStudyView({ project }: { project: Project }) {
     if (!heroRef.current) return;
     beginBackward({
       slug: project.slug,
-      heroSrc: project.hero,
-      thumbSrc: project.image,
+      heroSrc: heroUrl,
+      thumbSrc: thumbUrl,
       originEl: heroRef.current,
     });
   };
@@ -57,15 +68,28 @@ export default function CaseStudyView({ project }: { project: Project }) {
   return (
     <>
       <div ref={heroRef} className={styles.hero}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={project.hero}
-          alt={project.heroAlt}
-          className={styles.heroImg}
-          loading="eager"
-          fetchPriority="high"
-          onClick={() => setLightboxIndex(0)}
-        />
+        {heroUrl &&
+          (heroIsGif ? (
+            // eslint-disable-next-line @next/next/no-img-element -- animated
+            // GIF: bypasses Next's optimizer, which flattens/times out on these.
+            <img
+              src={heroUrl}
+              alt={heroAlt}
+              className={styles.heroImg}
+              style={HERO_FILL_STYLE}
+              onClick={() => setLightboxIndex(0)}
+            />
+          ) : (
+            <Image
+              src={heroUrl}
+              alt={heroAlt}
+              fill
+              priority
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              className={styles.heroImg}
+              onClick={() => setLightboxIndex(0)}
+            />
+          ))}
       </div>
 
       <div className={[styles.body, transitioning && styles.fadingAway].filter(Boolean).join(" ")}>
@@ -81,47 +105,10 @@ export default function CaseStudyView({ project }: { project: Project }) {
           >
             {project.title}
           </h1>
-          <p className={styles.description}>{project.description}</p>
+          {project.description && <p className={styles.description}>{project.description}</p>}
         </div>
 
-        {(() => {
-          // Hero is always index 0 in pageImages; walk sections in the same
-          // order getPageImages does, handing each rendered image its
-          // matching flat index so the lightbox can step through the whole
-          // page regardless of which section it was opened from.
-          let cursor = 1;
-          return project.sections?.map((section, i) => {
-            switch (section.type) {
-              case "text-image": {
-                const imageIndex = cursor++;
-                return (
-                  <TextImageBlock
-                    key={i}
-                    text={section.text}
-                    image={section.image}
-                    imageIndex={imageIndex}
-                    onImageClick={setLightboxIndex}
-                  />
-                );
-              }
-              case "image-row": {
-                const imageIndices = section.images.map(() => cursor++);
-                return (
-                  <ImageRow
-                    key={i}
-                    images={section.images}
-                    imageIndices={imageIndices}
-                    onImageClick={setLightboxIndex}
-                  />
-                );
-              }
-              case "callout":
-                return <TextCallout key={i} text={section.text} />;
-              case "text":
-                return <TextBlock key={i} text={section.text} />;
-            }
-          });
-        })()}
+        <PortableTextBody value={project.body} onImageClick={setLightboxIndex} />
       </div>
 
       <Lightbox

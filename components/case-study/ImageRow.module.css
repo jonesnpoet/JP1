@@ -5,13 +5,17 @@
   margin-top: 120px;
 }
 
-.image {
-  display: block;
+.imageWrap {
+  position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image {
   object-fit: cover;
   object-position: center;
-  cursor: pointer;
 }
 
 @media (max-width: 900px) {

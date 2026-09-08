@@ -1,14 +1,16 @@
 import { notFound } from "next/navigation";
-import { PROJECTS } from "@/components/project-grid/projects";
+import { client } from "@/sanity/lib/client";
+import { projectBySlugQuery, projectSlugsQuery } from "@/sanity/lib/queries";
 import CaseStudyView from "@/components/case-study/CaseStudyView";
 
-export function generateStaticParams() {
-  return PROJECTS.map((project) => ({ slug: project.slug }));
+export async function generateStaticParams() {
+  const slugs = await client.fetch<string[]>(projectSlugsQuery);
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = PROJECTS.find((p) => p.slug === slug);
+  const project = await client.fetch(projectBySlugQuery, { slug });
   if (!project) return {};
   return {
     title: `${project.title} — Jones + Poet`,
@@ -22,7 +24,7 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = PROJECTS.find((p) => p.slug === slug);
+  const project = await client.fetch(projectBySlugQuery, { slug });
   if (!project) notFound();
 
   return (

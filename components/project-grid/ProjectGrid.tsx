@@ -6,43 +6,51 @@ import { canela } from "@/components/fonts";
 import { useIntroReady } from "@/components/site-intro/intro-ready-context";
 import { useProjectTransition } from "@/components/project-transition/project-transition-context";
 import ProjectImage from "@/components/project-image/ProjectImage";
-import { COMING_SOON_PROJECTS, PROJECTS, type ComingSoonProject, type Project } from "./projects";
+import { urlForImage } from "@/sanity/lib/image";
+import type { SanityProjectGridItem } from "@/sanity/lib/types";
+import { type ComingSoonProject } from "./projects";
 import styles from "./ProjectGrid.module.css";
 
 const STAGGER_MS = 80;
 // Matches .imageWrap's transition-duration in ProjectGrid.module.css.
 const IMAGE_FADE_MS = 600;
-const TOTAL_CARDS = PROJECTS.length + COMING_SOON_PROJECTS.length;
 
-export default function ProjectGrid() {
+export default function ProjectGrid({
+  projects,
+  comingSoon,
+}: {
+  projects: SanityProjectGridItem[];
+  comingSoon: ComingSoonProject[];
+}) {
   const imagesReady = useIntroReady();
   const [titlesReady, setTitlesReady] = useState(false);
+  const totalCards = projects.length + comingSoon.length;
 
   useEffect(() => {
     if (!imagesReady) return;
     // Titles don't start until every staggered image has finished fading in
     // (stage 3 completes before stage 4 begins).
-    const lastImageDelay = (TOTAL_CARDS - 1) * STAGGER_MS;
+    const lastImageDelay = (totalCards - 1) * STAGGER_MS;
     const timer = setTimeout(() => setTitlesReady(true), lastImageDelay + IMAGE_FADE_MS);
     return () => clearTimeout(timer);
-  }, [imagesReady]);
+  }, [imagesReady, totalCards]);
 
   return (
     <div className={styles.list}>
-      {PROJECTS.map((project, i) => (
+      {projects.map((project, i) => (
         <ProjectCard
-          key={project.slug}
+          key={project._id}
           project={project}
           index={i}
           imagesReady={imagesReady}
           titlesReady={titlesReady}
         />
       ))}
-      {COMING_SOON_PROJECTS.map((project, i) => (
+      {comingSoon.map((project, i) => (
         <ComingSoonCard
           key={project.slug}
           project={project}
-          index={PROJECTS.length + i}
+          index={projects.length + i}
           imagesReady={imagesReady}
           titlesReady={titlesReady}
         />
@@ -57,7 +65,7 @@ function ProjectCard({
   imagesReady,
   titlesReady,
 }: {
-  project: Project;
+  project: SanityProjectGridItem;
   index: number;
   imagesReady: boolean;
   titlesReady: boolean;
@@ -72,6 +80,12 @@ function ProjectCard({
   const isActive = activeSlug === project.slug;
   const isOtherFading = activeSlug !== null && !isActive;
 
+  const thumbUrl = urlForImage(project.thumbnail)?.width(600).fit("crop").url() ?? "";
+  // No separate hover image set -- crossfade to itself (a same-image
+  // "hover" is a no-op, matching the schema's documented fallback).
+  const hoverUrl = urlForImage(project.hoverImage ?? project.thumbnail)?.width(600).fit("crop").url() ?? thumbUrl;
+  const heroUrl = urlForImage(project.heroImage)?.width(1537).fit("crop").url() ?? "";
+
   const handleClick = (event: React.MouseEvent) => {
     // Let modified/non-primary clicks behave normally (new tab, etc).
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
@@ -79,8 +93,8 @@ function ProjectCard({
     if (!imageWrapRef.current) return;
     beginForward({
       slug: project.slug,
-      heroSrc: project.hero,
-      thumbSrc: project.image,
+      heroSrc: heroUrl,
+      thumbSrc: thumbUrl,
       originEl: imageWrapRef.current,
     });
   };
@@ -99,7 +113,7 @@ function ProjectCard({
           .join(" ")}
         style={{ transitionDelay: imagesReady ? `${index * STAGGER_MS}ms` : "0ms" }}
       >
-        <ProjectImage title={project.title} image={project.image} sketch={project.sketch} />
+        <ProjectImage title={project.title} image={thumbUrl} sketch={hoverUrl} />
       </div>
       <p
         className={[
